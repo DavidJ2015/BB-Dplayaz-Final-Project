@@ -5,9 +5,9 @@
 
 -   ++++++++++(End Goal/Assignment here) +++++++++(Person assigned to this here)
 -   API/Data Compiling, filtering, and condensing ---------> Tom
--  GGplots and map making ------------------------------->
+-  GGplots and map making -------------------------------> David
 - Research data and discerning useful filtered data------> Phi-Ho
-- Merging data/Fixing bugs----------------------------->
+- Merging data/Fixing bugs-----------------------------> Alejandro
 - Extra Rscripts necessary for project --------------------> Tom
 - Ui and Server Development-----------------------------> Phi-Ho
 - Other Ideas?
