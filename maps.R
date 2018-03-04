@@ -1,4 +1,6 @@
 
+##GGplot2 and dplyr must be installed on computer/drive in order for this script to function correctly
+
 
 library(ggplot2)
 library(dplyr)
