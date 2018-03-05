@@ -4,6 +4,7 @@
 
 library(ggplot2)
 library(dplyr)
+library(maps)
 
 world <- map_data("world")
 world <- world %>% filter(region != "Antarctica")
