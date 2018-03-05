@@ -79,3 +79,5 @@ searchThroughApi <- function(indicatorValue){
   variableValue <- GET(url = url5)
   listOfValues <- content(variableValue, "text") %>% fromJSON()
 }
+
+
