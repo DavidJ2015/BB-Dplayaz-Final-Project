@@ -20,6 +20,6 @@ CreateMap <- function(country){
   }
   smallest <- min(Area$long)
   biggest <- max(Area$long)
-  return(Area %>% ggplot(aes(long, lat)) + geom_polygon(aes(group = group, fill = subregion)) + 
+  return(Area %>% ggplot(aes(long, lat)) + geom_polygon(aes(group = group)) + 
            coord_cartesian(xlim = c(smallest, biggest)) + labs(title = paste(country, "Map"), x = "Longitude", y = "Latitude"))
 }

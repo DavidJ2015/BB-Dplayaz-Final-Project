@@ -67,7 +67,40 @@ Indicators <- function(){
 # data concerning either all the countries or certain countries during or over a time period.  This is ALOT, as it has a total 
 # of 17066 rows (please don't push a list like this to gitHub:  it wont work)  I have deselected both L7 and L8 below so that your 
 # doesn't run this function twice.  You shouldn't need your computer to write down this data frame.
-#L8 <- Indicators()[[2]]
+# L8 <- Indicators()[[2]]
 
+# This is a basic search of all countries with a certain indicator
+searchThroughApi <- function(indicatorValue){
+  pathing <- paste0("countries/all/indicators/",indicatorValue)
+  query <- ("?format=json")
+  url5 <- paste0(base, pathing, query)
+  variableValue <- GET(url = url5)
+  listOfValues <- content(variableValue, "text") %>% fromJSON()
+}
 
+# This is a narrowed search of a particular indicator by specific year or year range
+searchThroughApiByYear <- function(indicatorValue, yearRange){
+  pathing <- paste0("countries/all/indicators/",indicatorValue)
+  query <- paste0("?date=", yearRange, "&format=json")
+  url5 <- paste0(base, pathing, query)
+  variableValue <- GET(url = url5)
+  listOfValues <- content(variableValue, "text") %>% fromJSON()
+}
 
+# This function returns the number of entries of a certain indicator within a certain year
+staEntries <- function(indicator, year){
+  dataList <- searchThroughApiByYear(indicator, year)
+  entries <- dataList[[1]]$total
+  return(entries)
+}
+
+# Calls on the function that returns the number of entries to use the number in the search through the API (For the entire
+# dataframe of countries with a certain indicator)
+staFiltered <- function(indicator, year){
+  entries <- staEntries(indicator, year)
+  pathing <- paste0("countries/all/indicators/",indicator)
+  query <- paste0("?date=", year, "&per_page=", entries, "&format=json")
+  url6 <- paste0(base, pathing, query)
+  ourData <- GET(url = url6)
+  pullOurData <- content(ourData, "text") %>% fromJSON()
+}
