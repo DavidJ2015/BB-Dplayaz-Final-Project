@@ -106,3 +106,31 @@ staFiltered <- function(indicator, year){
   pullOurData <- content(ourData, "text") %>% fromJSON()
 }
 
+staByCountry <- function(indicator, year, list_of_countries){
+  entries <- staEntries(indicator, year)
+  pathing <- paste0("countries/all/indicators/",indicator)
+  query <- paste0("?date=", year, "&per_page=", entries, "&format=json")
+  url7 <- paste0(base, pathing, query)
+  data <- GET(url = url7)
+  pullData <- content(data, "text") %>% fromJSON()
+  data_frame <- pullData[[2]] %>% flatten()
+  vectored <- unlist(list_of_countries)
+  new_list <- list()
+  for(i in 1:length(data_frame$country.value)){
+    new_list[[i]] <- test_function(data_frame$country.value[i], vectored)
+  }
+  new_list <- unlist(new_list)
+  print(new_list)
+  data_frame <- data_frame %>% filter(new_list)
+  return(data_frame)
+}
+
+
+test_function <- function(country, vector){
+  for(i in 1:length(vector)){
+    if(country == vector[i]){
+      return(TRUE)
+    }
+  }
+  return(FALSE)
+}
