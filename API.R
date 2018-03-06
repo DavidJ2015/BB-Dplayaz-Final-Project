@@ -106,6 +106,8 @@ staFiltered <- function(indicator, year){
   pullOurData <- content(ourData, "text") %>% fromJSON()
 }
 
+country_list <- Countries()[[2]] %>% select(id, name)
+
 staByCountry <- function(indicator, year, list_of_countries){
   entries <- staEntries(indicator, year)
   pathing <- paste0("countries/all/indicators/",indicator)
@@ -114,10 +116,11 @@ staByCountry <- function(indicator, year, list_of_countries){
   data <- GET(url = url7)
   pullData <- content(data, "text") %>% fromJSON()
   data_frame <- pullData[[2]] %>% flatten()
+  data_frame <- left_join(country_list, data_frame, by = c("name" = "country.value"))
   vectored <- unlist(list_of_countries)
   new_list <- list()
-  for(i in 1:length(data_frame$country.value)){
-    new_list[[i]] <- test_function(data_frame$country.value[i], vectored)
+  for(i in 1:length(data_frame$name)){
+    new_list[[i]] <- test_function(data_frame$name[i], vectored)
   }
   new_list <- unlist(new_list)
   print(new_list)
