@@ -123,7 +123,6 @@ staByCountry <- function(indicator, year, list_of_countries){
     new_list[[i]] <- test_function(data_frame$name[i], vectored)
   }
   new_list <- unlist(new_list)
-  print(new_list)
   data_frame <- data_frame %>% filter(new_list)
   return(data_frame)
 }
