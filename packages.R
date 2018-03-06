@@ -2,6 +2,10 @@ is.installed <- function(package){
     is.element(package, installed.packages()[,1])
 }
 
+if (!is.installed("httr")){
+  install.packages("httr")
+}
+
 if (!is.installed("shinydashboard")){
   install.packages("shinydashboard")
 }
