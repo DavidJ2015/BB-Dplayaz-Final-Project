@@ -6,9 +6,16 @@ sidebar <- dashboardSidebar(
   sidebarMenu(
     menuItem("World Map", tabName = "Tab1", icon = icon("globe")),
     menuItem("United States Map", tabName = "Tab2", icon = icon("globe")),
-	menuItem("Something 2", tabName = "Tab3", icon = icon("globe")),
-	menuItem("Something 3", tabName = "Tab4", icon = icon("globe"))
-  )
+    menuItem("Data Acknowledgements", tabName = "Tab1", icon = icon("globe")),
+    menuItem("The World by Maps", tabName = "Maps", icon = icon("globe")),
+    menuItem("The World by Charts", tabName = "Charts", icon = icon("globe")),
+    menuItem("The World by Tables", tabName = "Tables", icon = icon("globe"),
+    sliderInput("SliderData", "Slider", min = 0, max = 250, value = 500),
+    selectInput("Indicator", label = h3("Input Data"), selected = NULL, choices = list("Choice 1" = 1, "Choice 2" = 2, 
+                                                                                                "Choice 3" = 3)),
+    dateInput("SpeYear", "Date of Curiosity", value = "2000-01-01")
+   )
+ ) 
 )
 
 body <- dashboardBody(
