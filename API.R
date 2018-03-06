@@ -1,6 +1,6 @@
-library("httr")
-library("jsonlite")
-library("dplyr")
+library(httr)
+library(jsonlite)
+library(dplyr)
 
 base <- "http://api.worldbank.org/v2/"
 
