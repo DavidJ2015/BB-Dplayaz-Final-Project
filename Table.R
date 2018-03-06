@@ -13,17 +13,13 @@ country_list <- Countries()[[2]] %>% select(id, name)
 # Goes to API for each indicator, and combines the new 
 OneYear <- function(year, range_countries, range_data){
   data_list <- country_list
-  for(i in 1:length(range_data)){
-    list <- staFiltered(range_data[[i]], year)[[2]] %>% flatten() %>% select(country.value, value)
-    data_list <- left_join(data_list, list, by = c("name" = "country.value"))
+  data_list <- staByCountry(range_data[[1]], year, range_countries) %>% select(name, value) 
+  for(i in 2:length(range_data)){
+    list <- staByCountry(range_data[[1]], year, range_countries) %>% select(name, value)
+    colnames(list) <- c("name", paste0("Value", i))
+    
+    data_list <- left_join(data_list, list)
   }
-  vectored <- unlist(range_countries)
-  new_list <- list()
-  for(i in 1:length(data_list$name)){
-    new_list[[i]] <- test_function(data_list$name[i], vectored)
-  }
-  new_list <- unlist(new_list)
-  data_list <- data_list %>% filter(new_list)
   return(data_list)
 }
 
@@ -43,7 +39,7 @@ oneCountry <- function(Country_name, Year_Range, data_list){
   
   }
   
-}
+
 
 
 
