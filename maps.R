@@ -61,6 +61,6 @@ CountrySearch <- function(Col, Var){
 
 CountryColor <- function(Col){
   FilterData <- JoinData %>% select(JoinData[Col])
-  return(CreateWorldMap + geom_polygon(data = FilterData, aes(x = long, y = lat, group = group), fill = "green") + 
+  return(CreateWorldMap + geom_polygon(data = FilterData, aes(x = long, y = lat, group = group, fill = FilterData[1]), fill = "green") + 
            coord_fixed(1.3) + labs(x = "Longitude", y = "Latitude"))
 }
