@@ -6,32 +6,34 @@ library(ggplot2)
 library(maps)
 
 function(input, output, session) {
-  output$Text1 <- renderText({
-    "Some options 1"
+  output$AppIntro <- renderText({
+    "Introduction to this application here"
   })
   
-  output$Text2 <- renderText({
-    "Some options 2"
+  output$DataAckn <- renderText({
+    "Acknoledgments about Data from World Bank here"
   })
   
-  output$Text3 <- renderText({
-    "Some options 3"
+  output$Charts <- renderText({
+    "Got some charts here..."
   })
   
-  output$Text4 <- renderText({
-    "Some options 4"
+  output$Tables <- renderText({
+    "Tables gallore, you cannot ignore"
   })
   
-  output$WorldMap1 <- renderPlot({
-    CreateWorldMap
+  output$WorldMap <- renderPlot({
+    Var <- countrycode(input$WorldMapSelect, "country.name", "iso2c", warn = FALSE)
+    CountryHighlight(Var)
   })
   
-  output$WorldMap2 <- renderPlot({
-    CreateWorldMap
+  output$MapsByCountry <- renderPlot({
+    Var <- countrycode(input$MapsByCountrySelect, "country.name", "iso2c", warn = FALSE)
+    CreateMap(Var)
   })
   
-  output$WorldMap3 <- renderPlot({
-    CreateWorldMap
+  output$CountryByVariable <- renderPlot({
+    CountryColor(input$CountryByVariableSelect)
   })
 }
 
