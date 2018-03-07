@@ -2,8 +2,6 @@ library(shinydashboard)
 library(dplyr)
 source("./IndicatorLists.R")
 
-source("./IndicatorLists.R")
-
 L4 <- read.csv(file = "L4.csv", stringsAsFactors = FALSE)
 Data <- L4 %>% filter(region.id != "NA", name != "Virgin Islands (U.S.)", name != "Tuvalu", name != "British Virgin Islands")
 CountryNames <- Data %>% select(name)
