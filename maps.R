@@ -7,15 +7,15 @@ library(maps)
 library(mapdata)
 library(countrycode)
 
-World <- map_data("world") %>% filter(region != "Antarctica")
-World <- World %>% mutate(iso2Code = countrycode(World$region, "country.name", "iso2c", warn = FALSE))
+# World <- map_data("world") %>% filter(region != "Antarctica")
+# World <- World %>% mutate(iso2Code = countrycode(World$region, "country.name", "iso2c", warn = FALSE))
+# WorldHiRes <- map_data("world2Hires")
+# WorldHiRes <- WorldHiRes %>% mutate(long = WorldHiRes$long - 360, iso2Code = countrycode(WorldHiRes$region, "country.name", "iso2c", warn = FALSE))
+World <- read.csv("World.csv", stringsAsFactors = FALSE)
+#WorldHiRes <- read.csv("WorldHiRes.csv", stringsAsFactors = FALSE)
+
+L4 <- read.csv(file = "L4.csv")
 JoinData <- inner_join(World, L4, by = "iso2Code")
-
-FlattenFunction <- function(flat){
-  return(flatten(flat))
-}
-
-L4 <- FlattenFunction(L4)
 
 CreateWorldMap <- ggplot() + geom_polygon(data = World, aes(x = long, y = lat, group = group)) + 
   coord_fixed(1.3) + labs(x = "Longitude", y = "Latitude")
@@ -23,21 +23,29 @@ CreateWorldMap <- ggplot() + geom_polygon(data = World, aes(x = long, y = lat, g
 CreateMap <- function(Country){
   if (any((Country) == World$iso2Code)){
     Area <- World %>% filter(iso2Code == Country)
+    Capital <- L4 %>% filter(iso2Code == Country)
+    Capital <- Capital %>% mutate(capital = toString(Capital$capitalCity[1]), long = as.numeric(Capital$longitude[1]), lat = as.numeric(Capital$latitude[1]))
   } else {
     stop()
   }
-  return(ggplot() + geom_polygon(data = Area, aes(x = long, y = lat, group = group)) + 
-           coord_fixed(1.3) + labs(x = "Longitude", y = "Latitude"))
+  return(ggplot() + geom_polygon(data = Area, aes(x = long, y = lat, group = group)) + coord_fixed(1.3) + 
+           geom_point(data = Capital, aes(x = long, y = lat), color = "blue") + 
+           geom_label_repel(data = Capital, aes(x = long, y = lat, label = capital), color = 'red', size = 3.5) + 
+           labs(x = "Longitude", y = "Latitude"))
 }
 
 CreateMapHiRes <- function(Country){
   if (any((Country) == WorldHiRes$iso2Code)){
     Area <- WorldHiRes %>% filter(iso2Code == Country)
+    Capital <- L4 %>% filter(iso2Code == Country)
+    Capital <- Capital %>% mutate(capital = toString(Capital$capitalCity[1]), long = as.numeric(Capital$longitude[1]), lat = as.numeric(Capital$latitude[1]))
   } else {
     stop()
   }
   return(ggplot() + geom_polygon(data = Area, aes(x = long, y = lat, group = group)) + 
-           coord_fixed(1.3) + labs(x = "Longitude", y = "Latitude"))
+           coord_fixed(1.3) + labs(x = "Longitude", y = "Latitude") + 
+           geom_label_repel(data = Capital, aes(x = long, y = lat, label = capital), color = 'red', size = 3.5) + 
+           labs(x = "Longitude", y = "Latitude"))
 }
 
 CountryHighlight <- function(Country){
@@ -60,7 +68,8 @@ CountrySearch <- function(Col, Var){
 }
 
 CountryColor <- function(Col){
-  FilterData <- JoinData %>% select(JoinData[Col])
-  return(CreateWorldMap + geom_polygon(data = FilterData, aes(x = long, y = lat, group = group, fill = FilterData[1]), fill = "green") + 
-           coord_fixed(1.3) + labs(x = "Longitude", y = "Latitude"))
+  ToPlotData <- JoinData
+  colnames(ToPlotData)[colnames(ToPlotData) == Col] <- "Fill"
+  return(CreateWorldMap + geom_polygon(data = ToPlotData, aes(x = long, y = lat, group = group, fill = Fill), color = "black") + 
+           coord_fixed(1.3) + labs(x = "Longitude", y = "Latitude", fill=""))
 }

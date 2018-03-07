@@ -21,13 +21,19 @@ function(input, output, session) {
   output$Tables <- renderText({
     "Tables gallore, you cannot ignore"
   })
-
-  output$WorldMap2 <- renderPlot({
-    CreateWorldMap
+  
+  output$WorldMap <- renderPlot({
+    Var <- countrycode(input$WorldMapSelect, "country.name", "iso2c", warn = FALSE)
+    CountryHighlight(Var)
   })
   
-  output$TableIn <- renderTable({
-    
+  output$MapsByCountry <- renderPlot({
+    Var <- countrycode(input$MapsByCountrySelect, "country.name", "iso2c", warn = FALSE)
+    CreateMap(Var)
+  })
+  
+  output$CountryByVariable <- renderPlot({
+    CountryColor(input$CountryByVariableSelect)
   })
 }
 

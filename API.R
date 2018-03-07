@@ -36,6 +36,8 @@ L3 <- Countries()[[1]]
 
 # This brings about a list of 304 countries, and so this should be very, very useful
 L4 <- Countries()[[2]]
+flatten(L4)
+write.csv(L4, file = "L4.csv")
 
 ## This is not a very useful source of information.  We probably dont want to use it.
 IncomeLevels <- function(){
@@ -139,32 +141,26 @@ test_function <- function(country, vector){
 
 staByCountry <- function(list_of_indicators, list_of_years, country){
   length <- length(list_of_years)
-  if(length(list_of_years) > 1){
-    years_name <- paste0( list_of_years[[1]], ":", list_of_years[[length]])
-  } else{
-    years_name <- list_of_years[[1]]
-  }
+  years_name <- paste0( list_of_years[[1]], ":", list_of_years[[length]])
   new_data <- staFiltered(list_of_indicators[[1]], years_name)[[2]] %>% flatten() %>% select(country.value, 
-                                                                date, value) %>% filter(country.value == country)
+                                                                                             date, value) %>% filter(country.value == country)
   for(i in 2:length(list_of_indicators)){
     new_list <- staFiltered(list_of_indicators[[i]], years_name)[[2]] %>% flatten() %>% select(country.value, 
-                                                                    date, value) %>% filter(country.value == country)
-    colnames(new_list) <- c("country.value", "date", paste0("Value", i))
+                                                                                               date, value) %>% filter(country.value == country)
+    colnames(new_list) <- c("country.value", "date", paste("Value", i))
     new_data <- left_join(new_data, new_list)
   }
   return(new_data)
 }
 
 staByData <- function(indicator, list_of_years, list_of_countries){
-   starter_data <- data.frame(country = unlist(list_of_countries))
-   for(i in 1:length(list_of_years)){
+  starter_data <- data.frame(country = unlist(list_of_countries))
+  for(i in 1:length(list_of_years)){
     new_data <- data.frame(country = unlist(list_of_countries))
     new_data$value <- staByYear(list(indicator), list_of_years[[i]], list_of_countries)$value
     colnames(new_data) <- c("country", paste("Year", list_of_years[[i]]))
     print(new_data)
     starter_data <- left_join(starter_data, new_data)
-   }
-   return(starter_data)
+  }
+  return(starter_data)
 }
-
-
