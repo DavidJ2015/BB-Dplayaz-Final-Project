@@ -26,16 +26,16 @@ function(input, output, session) {
     "Tables gallore, you cannot ignore"
   })
   
-  output$WorldMap <- renderPlot({
-    CreateMapHiRes("World")
+  output$WorldMap1 <- renderPlot({
+    CreateWorldMap
   })
   
-  output$USA <- renderPlot({
-    CreateMapHiRes("USA")
+  output$WorldMap2 <- renderPlot({
+    CreateWorldMap
   })
   
-  output$Country <- renderPlot({
-    CreateMap(input$CountryName)
+  output$WorldMap3 <- renderPlot({
+    CreateWorldMap
   })
 }
 
