@@ -30,4 +30,8 @@ if (!is.installed("mapdata")){
   install.packages("mapdata")
 }
 
+if (!is.installed("countrycode")){
+  install.packages("countrycode")
+}
+
 # Source code - https://stackoverflow.com/questions/9341635/check-for-installed-packages-before-running-install-packages

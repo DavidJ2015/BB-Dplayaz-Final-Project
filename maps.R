@@ -1,15 +1,16 @@
 ##GGplot2 and dplyr must be installed on computer/drive in order for this script to function correctly
 
-source("packages.R")
-source("API.R")
 library(dplyr)
 library(ggplot2)
+library(ggrepel)
 library(maps)
 library(mapdata)
+library(countrycode)
 
 World <- map_data("world") %>% filter(region != "Antarctica")
 World <- World %>% mutate(iso2Code = countrycode(World$region, "country.name", "iso2c"))
 WorldHiRes <- map_data("world2Hires") %>% filter(long - 360)
+JoinData <- inner_join(World, L4, by = "iso2Code")
 
 FlattenFunction <- function(flat){
   return(flatten(flat))
@@ -54,9 +55,8 @@ CountryHighlight <- function(Country){
 }
 data <- data %>% mutate(income.level = replace(data$incomeLevel.iso2code, "XT" == 10, NA))
 
-CountryColor <- function(Type){
-  data <- inner_join(World, L4, by = "iso2Code")
-  HighIncome <- data %>% filter(incomeLevel.iso2code == "XD")
-  return(CreateWorldMap + geom_polygon(data = HighIncome, aes(x = long, y = lat, group = group), fill = "blue") + 
+CountryColor <- function(Col, Var){
+  FilterData <- JoinData %>% filter(JoinData[Col] == Var)
+  return(CreateWorldMap + geom_polygon(data = FilterData, aes(x = long, y = lat, group = group), fill = "green") + 
            coord_fixed(1.3) + labs(x = "Longitude", y = "Latitude"))
 }
