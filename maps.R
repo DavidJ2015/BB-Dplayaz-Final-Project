@@ -8,8 +8,7 @@ library(mapdata)
 library(countrycode)
 
 World <- map_data("world") %>% filter(region != "Antarctica")
-World <- World %>% mutate(iso2Code = countrycode(World$region, "country.name", "iso2c"))
-WorldHiRes <- map_data("world2Hires") %>% filter(long - 360)
+World <- World %>% mutate(iso2Code = countrycode(World$region, "country.name", "iso2c", warn = FALSE))
 JoinData <- inner_join(World, L4, by = "iso2Code")
 
 FlattenFunction <- function(flat){
@@ -53,10 +52,15 @@ CountryHighlight <- function(Country){
            geom_point(data = Capital, aes(x = long, y = lat), color = "blue") + 
            geom_label_repel(data = Capital, aes(x = long, y = lat, label = capital), color = 'red', size = 3.5))
 }
-data <- data %>% mutate(income.level = replace(data$incomeLevel.iso2code, "XT" == 10, NA))
 
-CountryColor <- function(Col, Var){
+CountrySearch <- function(Col, Var){
   FilterData <- JoinData %>% filter(JoinData[Col] == Var)
+  return(CreateWorldMap + geom_polygon(data = FilterData, aes(x = long, y = lat, group = group), fill = "green") + 
+           coord_fixed(1.3) + labs(x = "Longitude", y = "Latitude"))
+}
+
+CountryColor <- function(Col){
+  FilterData <- JoinData %>% select(JoinData[Col])
   return(CreateWorldMap + geom_polygon(data = FilterData, aes(x = long, y = lat, group = group), fill = "green") + 
            coord_fixed(1.3) + labs(x = "Longitude", y = "Latitude"))
 }
