@@ -1,6 +1,6 @@
 source("packages.R")
-source("maps.R")
 source("API.R")
+source("maps.R")
 library(dplyr)
 library(ggplot2)
 library(maps)
