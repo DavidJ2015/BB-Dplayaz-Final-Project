@@ -1,7 +1,5 @@
 library(shinydashboard)
 
-source("./Table.R")
-
 header <- dashboardHeader(title = "The World Bank Database")
 
 sidebar <- dashboardSidebar(
@@ -49,10 +47,29 @@ body <- dashboardBody(
     ),
     tabItem("Charts",
             fluidRow(
-              box(
-                width = 12, status = "primary", solidHeader = TRUE,
-                title = "Chart Analysis",
-                textOutput("Charts")
+              column(width = 6,
+                box(
+                  width = NULL, solidHeader = TRUE,
+                  title = "Pie Chart",
+                  textOutput("Charts1"),
+                  plotOutput("distPlot1")
+                )
+              ),
+              column(width = 6,
+                 box(
+                   width = NULL, solidHeader = TRUE,
+                   title = "Column Chart",
+                   textOutput("Charts2"),
+                   plotOutput("distPlot2")
+                 )
+              ),
+              column(width = 12,
+                     box(
+                       width = NULL, solidHeader = TRUE,
+                       title = "Plot Diagram",
+                       textOutput("Charts3"),
+                       plotOutput("distPlot3")
+                     )
               )
             )
     ),
@@ -75,15 +92,28 @@ body <- dashboardBody(
               column(width = 4,
                 box(width = NULL,
                   title = "Single Data Point Option",
-                  dateRangeInput("SelectYears", label = "Select Data", min = "1960-01-01", max = "2017-01-01", 
+                  dateRangeInput("SelectYears", label = "Select Range of Dates", min = "1960-01-01", max = "2017-01-01", 
                             start = "2000-01-01", end = "2015-01-01"),
                   selectInput("Count_Sel", label = "Country Selection", choices = list(1, 2 ,3))
                 )
               ),
               column(width = 4,
                 box(width = NULL,
-                    title = "Singe Year Option",
-                    dateInput()
+                    title = "Single Year Option",
+                    dateInput("SelectYear", label = "Select Date", min = "1960-01-01", max = "2017-01-01", value = "2000-01-01"),
+                    selectInput("Count_Sel", label = "Country Selection", choices = list(1, 2 ,3))
+                    
+                )
+              ),
+              
+              column(width = 4,
+                box(
+                  width = NULL,
+                  title = "Single Country Option",
+                  dateRangeInput("SelectYears", label = "Select Range of Dates", min = "1960-01-01", max = "2017-01-01", 
+                                 start = "2000-01-01", end = "2015-01-01"),
+                  selectInput("Count_Sel", label = "Country Selection", choices = list(1, 2 ,3))
+                  
                 )
               )
              
