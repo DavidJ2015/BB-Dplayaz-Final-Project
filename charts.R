@@ -2,6 +2,7 @@ library(ggplot2)
 library(dplyr)
 
 source("./API.R")
+source("./Table.R")
 
 #file_indicator <- 
 
@@ -10,10 +11,10 @@ source("./API.R")
 #columns, bar, pie
 #map_data <- read.table(...)
 
-list_of_countries <- list("Australia", "Brazil", "Canada", "China", "Mexico", "United States")
+#list_of_countries <- list("Australia", "Brazil", "Canada", "China", "Mexico", "United States")
 
 #plots the bar graph
-Graph_Bar <- function(indicator, year) {
+Graph_Bar <- function(indicator, year, list_of_countries) {
   graph_filtered <- OneYear(year, list_of_countries, list(indicator))
   p_bar_chart <- ggplot(graph_filtered, aes(name ,value, col = name)) + geom_bar(stat = "identity") +
     coord_cartesian(ylim = c(0, 100)) +
@@ -37,7 +38,7 @@ Graph_Bar <- function(indicator, year) {
  }
 
 #Pie Chart
-Graph_Pie <- function(indicator, year) {
+Graph_Pie <- function(indicator, year, list_of_countries) {
   graph_filtered <- OneYear(year, list_of_countries, list(indicator))
   p_bar_chart <- ggplot(graph_filtered, aes(name ,value, col = name)) + geom_bar(stat = "identity") +
     coord_cartesian(ylim = c(0, 100)) +
