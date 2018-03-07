@@ -4,7 +4,7 @@ Unemployment <- list(Unemployment_Percent.Tot.Labor.Force = "SL.UEM.TOTL.ZS", Un
                      Unemployed_Percent.Female.LF = "SL.UEM.TOTL.FE.ZS", Percent.Youth.Not.In.Education.Employment.Or.Training = "SL.UEM.NEET.ZS",
                      Long.Term.Unemployment_Percent.Tot.Unemp = "SL.UEM.LTRM.ZS", Percent.Unemployed.With.Basic.Ed = "SL.UEM.BASC.ZS", 
                      Percent.Unemployed.With.Adv.Education = "SL.UEM.ADVN.ZS", Unemployment.To.Pop.Percent.Age.15.Plus = "SL.EMP.TOTL.SP.NE.ZS",
-                     Number.People.Employed = "L.EMP.TOTL", Tot.Employment.Male.Age.15.Plus = "SL.EMP.TOTL.MA", 
+                     Number.People.Employed.Age.15.Plus = "SL.EMP.TOTL", Tot.Employment.Male.Age.15.Plus = "SL.EMP.TOTL.MA", 
                      Tot.Employment.Female.Age.15.Plus = "SL.EMP.TOTL.FE", Num.People.In.LF = "SL.TLF")
 
 Education <- list(Public.Expend.Education_Percent.GDP = "SE.XPD.EDUC.ZS", Percentage.Male.Repeat.Secondary.Ed = "UIS.REPP.2.GPV.M", 
