@@ -36,6 +36,8 @@ L3 <- Countries()[[1]]
 
 # This brings about a list of 304 countries, and so this should be very, very useful
 L4 <- Countries()[[2]]
+flatten(L4)
+write.csv(L4, file = "L4.csv")
 
 ## This is not a very useful source of information.  We probably dont want to use it.
 IncomeLevels <- function(){
@@ -154,14 +156,12 @@ staByCountry <- function(list_of_indicators, list_of_years, country){
 }
 
 staByData <- function(indicator, list_of_years, list_of_countries){
-   starter_data <- data.frame(country = unlist(list_of_countries))
-   for(i in 1:length(list_of_years)){
+  starter_data <- data.frame(country = unlist(list_of_countries))
+  for(i in 1:length(list_of_years)){
     new_data <- data.frame(country = unlist(list_of_countries))
     new_data$value <- staByYear(list(indicator), list_of_years[[i]], list_of_countries)$value
     colnames(new_data) <- c("country", paste0("Year", list_of_years[[i]]))
     starter_data <- left_join(starter_data, new_data)
-   }
-   return(starter_data)
+  }
+  return(starter_data)
 }
-
-
