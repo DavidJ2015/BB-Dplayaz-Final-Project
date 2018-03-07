@@ -1,5 +1,6 @@
 library(shinydashboard)
 library(dplyr)
+source("./IndicatorLists.R")
 
 L4 <- read.csv(file = "L4.csv", stringsAsFactors = FALSE)
 Data <- L4 %>% filter(region.id != "NA", name != "Virgin Islands (U.S.)", name != "Tuvalu", name != "British Virgin Islands")
@@ -21,7 +22,7 @@ sidebar <- dashboardSidebar(
                                                                   "Population" = c(Population),
                                                                   "Health" = c(Health),
                                                                   "Economy" = c(Economy),
-                                                                  "Fun Facts" = c(FunFacts)), multiple = TRUE),
+                                                                  "Fun Facts" = c(FunFacts)), selected = Population$Total, multiple = TRUE),
              selectInput("PercentIndicators", "Percentages (Select one or more)", list("Unemployment" = c(UnemploymentPercentages),
                                                                 "Education" = c(EducationPercentages),
                                                                 "Population" = c(PopulationPercentages),
@@ -78,6 +79,7 @@ body <- dashboardBody(
                 box(
                   width = NULL, solidHeader = TRUE,
                   title = "Pie Chart",
+                  selectInput("SelectAYearPie", label = "Select A Year", choices = 1960:2017),
                   textOutput("Charts1"),
                   plotOutput("distPlot1")
                 )
@@ -112,7 +114,9 @@ body <- dashboardBody(
                       box(width = NULL,
                           title = "Table Options",
                           radioButtons("tableChoices", label = "Table Types", choices = list("Country & Regions List" = "countries", 
-                                                                                             "Single Data Point" = "indicator", "One Country" = "country", "One Year" = "year"))
+                                                                                             "Single Data Point" = "indicator", 
+                                                                                             "One Country" = "country", 
+                                                                                             "One Year" = "year"))
                           
                       )
               ),
@@ -120,16 +124,16 @@ body <- dashboardBody(
 
                 box(width = NULL,
                   title = "Single Data Point Option",
-                  dateRangeInput("SelectYears", label = "Select Range of Dates", min = "1960-01-01", max = "2017-01-01", 
-                            start = "2000-01-01", end = "2015-01-01"),
-                  selectInput("Count_Sel", label = "Country Selection", choices = list(1, 2 ,3))
+                  selectInput("SelectAYear", label = "Select A Year", choices = 1960:2017),
+                  radioButtons("consecutiveYears", label = "Consecutive Years To Compare", choices = 1:5),
+                  selectInput("Count_Sel", label = "Country Selection", choices = CountryNames)
                 )
               ),
               column(width = 4,
                 box(width = NULL,
                     title = "Single Year Option",
-                    dateInput("SelectYear", label = "Select Date", min = "1960-01-01", max = "2017-01-01", value = "2000-01-01"),
-                    selectInput("Count_Sel", label = "Country Selection", choices = list(1, 2 ,3))
+                    selectInput("SelectYear", label = "Select A Year", choices = 1960:2017),
+                    selectInput("Count_Sel", label = "Country Selection", choices = CountryNames)
                     
                 )
               ),
@@ -138,9 +142,8 @@ body <- dashboardBody(
                 box(
                   width = NULL,
                   title = "Single Country Option",
-                  dateRangeInput("SelectYears", label = "Select Range of Dates", min = "1960-01-01", max = "2017-01-01", 
-                                 start = "2000-01-01", end = "2015-01-01"),
-                  selectInput("Count_Sel", label = "Country Selection", choices = list(1, 2 ,3))
+                  selectInput("SelectYears", label = "Select A Year", choices = 1960:2017),
+                  selectInput("Count_Sel", label = "Country Selection", choices = CountryNames)
                   
                 )
 

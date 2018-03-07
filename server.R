@@ -1,6 +1,8 @@
 source("packages.R")
 source("maps.R")
 source("./IndicatorLists.R")
+source("./Table.R")
+source("./charts.R")
 library(dplyr)
 library(ggplot2)
 library(maps)
@@ -39,6 +41,27 @@ function(input, output, session) {
   output$DataAckn <- renderText({
     input$Indicators
   })
+  
+  output$TableIn <- renderTable({
+    if(input$tableChoices == "countries"){
+      
+    }
+    else if(input$tableChoices == "indicator"){
+      
+    }
+    else if(input$tableChoices == "country"){
+      
+    }
+    else if(input$tableChoices == "year"){
+      
+    }
+  })
+  
+  output$distPlot1 <- renderPlot({
+    Graph_Pie(input$Indicators, input$SelectAYearPie)
+    
+  })
+
 }
 
 # Source code - https://rstudio.github.io/shinydashboard/examples.html
