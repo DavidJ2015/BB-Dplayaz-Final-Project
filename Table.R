@@ -9,6 +9,7 @@ source("./API.R")
 
 country_list <- Countries()[[2]] %>% select(id, name)
 
+
 #Requires a specific year, countries which are being approached, and all the indicators necessary
 # Goes to API for each indicator, and combines each data frame into an encompassing data frame
 OneYear <- function(year, range_countries, range_data){

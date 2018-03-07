@@ -25,6 +25,10 @@ function(input, output, session) {
   output$WorldMap2 <- renderPlot({
     CreateWorldMap
   })
+  
+  output$TableIn <- renderTable({
+    
+  })
 }
 
 # Source code - https://rstudio.github.io/shinydashboard/examples.html

@@ -149,7 +149,7 @@ staByCountry <- function(list_of_indicators, list_of_years, country){
   for(i in 2:length(list_of_indicators)){
     new_list <- staFiltered(list_of_indicators[[i]], years_name)[[2]] %>% flatten() %>% select(country.value, 
                                                                     date, value) %>% filter(country.value == country)
-    colnames(new_list) <- c("country.value", "date", paste("Value", i))
+    colnames(new_list) <- c("country.value", "date", paste0("Value", i))
     new_data <- left_join(new_data, new_list)
   }
   return(new_data)

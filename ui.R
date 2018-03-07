@@ -1,5 +1,6 @@
 library(shinydashboard)
 
+source("./Table.R")
 
 header <- dashboardHeader(title = "The World Bank Database")
 
@@ -58,8 +59,28 @@ body <- dashboardBody(
     tabItem("Tables",
             fluidRow(
               box(
-                textOutput("Tables")
+                width = 12, status = "primary", solidHeader = TRUE,
+                title = "Raw Data Analysis",
+                textOutput("Tables"),
+                tableOutput("TableIn")
+              ),
+              column( width = 4, 
+                box(width = NULL,
+                  title = "Table Options",
+                  radioButtons("tableChoices", label = "Table Types", choices = list("Country & Regions List" = "countries", 
+                                    "Single Data Point" = "indicator", "One Country" = "country", "One Year" = "year"))
+                
+                )
+              ),
+              column(width = 4,
+                box(width = NULL,
+                  title = "Single Data Point Option",
+                  dateRangeInput("SelectYears", label = "Select Data", min = "1960-01-01", max = "2017-01-01", 
+                            start = "2000-01-01", end = "2015-01-01"),
+                  selectInput("Count_Sel", label = "Country Selection", choices = )
+                )
               )
+             
             )
     )
   )
