@@ -9,13 +9,13 @@ library(countrycode)
 
 World <- map_data("world") %>% filter(region != "Antarctica")
 World <- World %>% mutate(iso2Code = countrycode(World$region, "country.name", "iso2c", warn = FALSE))
-JoinData <- inner_join(World, L4, by = "iso2Code")
 
 FlattenFunction <- function(flat){
   return(flatten(flat))
 }
 
 L4 <- FlattenFunction(L4)
+JoinData <- inner_join(World, L4, by = "iso2Code")
 
 CreateWorldMap <- ggplot() + geom_polygon(data = World, aes(x = long, y = lat, group = group)) + 
   coord_fixed(1.3) + labs(x = "Longitude", y = "Latitude")
@@ -60,7 +60,8 @@ CountrySearch <- function(Col, Var){
 }
 
 CountryColor <- function(Col){
-  FilterData <- JoinData %>% select(JoinData[Col])
-  return(CreateWorldMap + geom_polygon(data = FilterData, aes(x = long, y = lat, group = group, fill = FilterData[1]), fill = "green") + 
-           coord_fixed(1.3) + labs(x = "Longitude", y = "Latitude"))
+  ToPlotData <- JoinData
+  colnames(ToPlotData)[colnames(ToPlotData) == Col] <- "Fill"
+  return(CreateWorldMap + geom_polygon(data = ToPlotData, aes(x = long, y = lat, group = group, fill = Fill), color = "black") + 
+           coord_fixed(1.3) + labs(x = "Longitude", y = "Latitude", fill=""))
 }
