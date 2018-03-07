@@ -10,11 +10,11 @@ sidebar <- dashboardSidebar(
     menuItem("Data Acknowledgements", tabName = "Tab3", icon = icon("globe")),
     menuItem("The World by Maps", tabName = "Maps", icon = icon("globe")),
     menuItem("The World by Charts", tabName = "Charts", icon = icon("globe")),
-    menuItem("The World by Tables", tabName = "Tables", icon = icon("globe"),
-    sliderInput("SliderData", "Slider", min = 0, max = 250, value = 500),
-    selectInput("Indicator", label = h3("Input Data"), selected = NULL, choices = list("Choice 1" = 1, "Choice 2" = 2, 
-                                                                                                "Choice 3" = 3)),
-    dateInput("SpeYear", "Date of Curiosity", value = "2000-01-01")
+    menuItem("The World by Tables", tabName = "Tables", icon = icon("globe")
+ #   sliderInput("SliderData", "Slider", min = 0, max = 250, value = 500),
+  #  selectInput("Indicator", label = h3("Input Data"), selected = NULL, choices = list("Choice 1" = 1, "Choice 2" = 2, 
+   #                                                                                             "Choice 3" = 3)),
+  #  dateInput("SpeYear", "Date of Curiosity", value = "2000-01-01")
    )
  ) 
 )
@@ -66,15 +66,33 @@ body <- dashboardBody(
               )
       ),
       tabItem("Maps",
-				  textOutput("Maps")
+          fluidRow(
+            box(
+              width = 12, status = "primary", solidHeader = TRUE,
+              title = "Map Selection",
+				         textOutput("Maps")
+            )
+          )
       ),
       
       tabItem("Charts",
-              textOutput("Charts")
+              fluidRow(
+                box(
+                  width = 12, status = "primary", solidHeader = TRUE,
+                  title = "Chart Selection",
+                  textOutput("Charts")
+                )
+              )
       ),
       
       tabItem("Tables",
-              textOutput("Tables")
+              fluidRow(
+                box(
+                  width = 12, status = "primary", solidHeader = TRUE,
+                  title = "Map Selection",
+                  textOutput("Tables")
+                )
+              )
       )
   )
 )

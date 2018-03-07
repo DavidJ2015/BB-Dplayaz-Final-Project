@@ -14,12 +14,16 @@ function(input, output, session) {
     "Some options 2"
   })
   
-  output$Text3 <- renderText({
-    "Some options 3"
+  output$Maps <- renderText({
+    "These are not the maps you are looking for"
   })
   
-  output$Text4 <- renderText({
-    "Some options 4"
+  output$Charts <- renderText({
+    "Got some charts here..."
+  })
+  
+  output$Tables <- renderText({
+    "Tables gallore, you cannot ignore"
   })
   
   output$WorldMap <- renderPlot({

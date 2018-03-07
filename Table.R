@@ -13,12 +13,13 @@ country_list <- Countries()[[2]] %>% select(id, name)
 # Goes to API for each indicator, and combines each data frame into an encompassing data frame
 OneYear <- function(year, range_countries, range_data){
   data_list <- country_list
-  data_list <- staByYear(range_data[[1]], year, range_countries) %>% select(name, value) 
-  for(i in 2:length(range_data)){
-    list <- staByYear(range_data[[1]], year, range_countries) %>% select(name, value)
-    colnames(list) <- c("name", paste0("Value", i))
-    
-    data_list <- left_join(data_list, list)
+  data_list <- staByYear(range_data[[1]], year, range_countries) %>% select(name, value)
+  if(length(range_data) > 1){
+    for(i in 2:length(range_data)){
+      list <- staByYear(range_data[[i]], year, range_countries) %>% select(name, value)
+      colnames(list) <- c("name", paste0("Value", i))
+      data_list <- left_join(data_list, list)
+    }
   }
   return(data_list)
 }
