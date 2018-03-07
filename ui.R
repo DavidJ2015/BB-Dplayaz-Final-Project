@@ -1,13 +1,11 @@
 library(shinydashboard)
+library(dplyr)
 
-
+L4 <- read.csv(file = "L4.csv", stringsAsFactors = FALSE)
 Data <- L4 %>% filter(region.id != "NA", name != "Virgin Islands (U.S.)", name != "Tuvalu", name != "British Virgin Islands")
 CountryNames <- Data %>% select(name)
 CountryCodes <- Data %>% select(iso2Code)
 Variable <- c("Region" = "region.value", "Income Level" = "incomeLevel.value")
-
-
-
 
 header <- dashboardHeader(title = "The World Bank Database")
 
