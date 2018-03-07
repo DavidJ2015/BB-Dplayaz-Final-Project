@@ -25,6 +25,11 @@ function(input, output, session) {
   output$WorldMap2 <- renderPlot({
     CreateWorldMap
   })
+  
+  input$Indicators
+  output$DataAckn <- renderText({
+    input
+  })
 }
 
 # Source code - https://rstudio.github.io/shinydashboard/examples.html

@@ -86,6 +86,7 @@ searchThroughApiByYear <- function(indicatorValue, yearRange){
   url5 <- paste0(base, pathing, query)
   variableValue <- GET(url = url5)
   listOfValues <- content(variableValue, "text") %>% fromJSON()
+  listOfValues[[2]]
 }
 
 # This function returns the number of entries of a certain indicator within a certain year
