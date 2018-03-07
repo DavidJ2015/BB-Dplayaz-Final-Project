@@ -6,16 +6,12 @@ library(ggplot2)
 library(maps)
 
 function(input, output, session) {
-  output$Text1 <- renderText({
-    "Some options 1"
+  output$AppIntro <- renderText({
+    "Introduction to this application here"
   })
   
-  output$Text2 <- renderText({
-    "Some options 2"
-  })
-  
-  output$Maps <- renderText({
-    "These are not the maps you are looking for"
+  output$DataAckn <- renderText({
+    "Acknoledgments about Data from World Bank here"
   })
   
   output$Charts <- renderText({
@@ -25,16 +21,8 @@ function(input, output, session) {
   output$Tables <- renderText({
     "Tables gallore, you cannot ignore"
   })
-  
-  output$WorldMap1 <- renderPlot({
-    CreateWorldMap
-  })
-  
+
   output$WorldMap2 <- renderPlot({
-    CreateWorldMap
-  })
-  
-  output$WorldMap3 <- renderPlot({
     CreateWorldMap
   })
 }
