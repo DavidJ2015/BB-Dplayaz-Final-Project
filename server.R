@@ -1,5 +1,6 @@
 source("packages.R")
 source("maps.R")
+source("./IndicatorLists.R")
 library(dplyr)
 library(ggplot2)
 library(maps)
@@ -35,9 +36,8 @@ function(input, output, session) {
     CountryColor(input$CountryByVariableSelect)
   })
   
-  input$Indicators
   output$DataAckn <- renderText({
-    input
+    input$Indicators
   })
 }
 
