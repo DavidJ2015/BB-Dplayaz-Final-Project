@@ -10,7 +10,7 @@ source("./API.R")
 country_list <- Countries()[[2]] %>% select(id, name)
 
 #Requires a specific year, countries which are being approached, and all the indicators necessary
-# Goes to API for each indicator, and combines the new 
+# Goes to API for each indicator, and combines each data frame into an encompassing data frame
 OneYear <- function(year, range_countries, range_data){
   data_list <- country_list
   data_list <- staByYear(range_data[[1]], year, range_countries) %>% select(name, value) 
@@ -23,23 +23,14 @@ OneYear <- function(year, range_countries, range_data){
   return(data_list)
 }
 
-test_function <- function(country, vector){
-  for(i in 1:length(vector)){
-    if(country == vector[i]){
-      return(TRUE)
-    }
-  }
-  return(FALSE)
-}
-
 #Year range must be a vector of numbers
 oneCountry <- function(Country_name, Year_Range, data_list){
-  
-  char_vec <- as.character(Year_Range)
-  
+  staByCountry(data_list, Year_Range, Country_name)
   }
   
-
+oneIndicator <- function(indicator, Year_Range, Country_List){
+  staByData(indicator, Year_Range, Country_List)
+}
 
 
 

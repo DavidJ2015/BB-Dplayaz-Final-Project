@@ -7,7 +7,7 @@ sidebar <- dashboardSidebar(
   sidebarMenu(
     menuItem("World Map", tabName = "Tab1", icon = icon("globe")),
     menuItem("United States Map", tabName = "Tab2", icon = icon("globe")),
-    menuItem("Data Acknowledgements", tabName = "Tab1", icon = icon("globe")),
+    menuItem("Data Acknowledgements", tabName = "Tab3", icon = icon("globe")),
     menuItem("The World by Maps", tabName = "Maps", icon = icon("globe")),
     menuItem("The World by Charts", tabName = "Charts", icon = icon("globe")),
     menuItem("The World by Tables", tabName = "Tables", icon = icon("globe"),
@@ -65,8 +65,16 @@ body <- dashboardBody(
                 )
               )
       ),
-      tabItem("Tab4",
-				  textOutput("Text4")
+      tabItem("Maps",
+				  textOutput("Maps")
+      ),
+      
+      tabItem("Charts",
+              textOutput("Charts")
+      ),
+      
+      tabItem("Tables",
+              textOutput("Tables")
       )
   )
 )
