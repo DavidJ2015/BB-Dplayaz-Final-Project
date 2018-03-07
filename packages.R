@@ -18,6 +18,10 @@ if (!is.installed("ggplot2")){
   install.packages("ggplot2")
 }
 
+if (!is.installed("ggrepel")){
+  install.packages("ggrepel")
+}
+
 if (!is.installed("maps")){
   install.packages("maps")
 }

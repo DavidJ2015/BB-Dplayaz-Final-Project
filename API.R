@@ -61,13 +61,13 @@ Indicators <- function(){
 }
 
 # List that describes L8 below
-#L7 <- Indicators()[[1]]
+#L7 <- Indicators()[[1]] %>% flatten()
 
 # This is a data frame that has a list of different "indicators" that can be used to search the API site for different statistics/
 # data concerning either all the countries or certain countries during or over a time period.  This is ALOT, as it has a total 
 # of 17066 rows (please don't push a list like this to gitHub:  it wont work)  I have deselected both L7 and L8 below so that your 
 # doesn't run this function twice.  You shouldn't need your computer to write down this data frame.
-# L8 <- Indicators()[[2]]
+# L8 <- Indicators()[[2]] %>% flatten()
 
 # This is a basic search of all countries with a certain indicator
 searchThroughApi <- function(indicatorValue){
