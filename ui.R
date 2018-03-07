@@ -7,33 +7,32 @@ sidebar <- dashboardSidebar(
   sidebarMenu(
 
 
-    menuItem("Data Acknowledgements", tabName = "Tab1", icon = icon("globe")),
-    menuItem("The World by Maps", tabName = "Tab2", icon = icon("globe")),
-    menuItem("The World by Charts", tabName = "Tab3", icon = icon("globe")),
-    menuItem("The World by Tables", tabName = "Tab4", icon = icon("globe"),
-             sliderInput("SliderData", "Slider", min = 0, max = 250, value = 500),
-             dateInput("SpeYear", "Date of Curiosity", value = "2000-01-01")
+    menuItem("Data Acknowledgements", tabName = "Intro", icon = icon("globe")),
+    menuItem("The World by Maps", tabName = "Maps", icon = icon("globe")),
+    menuItem("The World by Charts", tabName = "Charts", icon = icon("globe")),
+    menuItem("The World by Tables", tabName = "Tables", icon = icon("globe")
+             
     )
   )
 )
 
 body <- dashboardBody(
   tabItems(
-    tabItem("Tab1",
+    tabItem("Intro",
             fluidRow(
               box(
                 width = 12, status = "primary", solidHeader = TRUE,
-                title = "World Map",
-                plotOutput("WorldMap1", height = "600")
+                title = "Application Itroduction",
+                textOutput("AppIntro")
               ),
               box(
                 width = 12, color = "light-blue",
-                title = "Option",
-                textOutput("Text1")
+                title = "Data from World Bank",
+                textOutput("DataAckn")
               )
             )
     ),
-    tabItem("Tab2",
+    tabItem("Maps",
             fluidRow(
               box(
                 width = 12, status = "primary", solidHeader = TRUE,
@@ -47,24 +46,21 @@ body <- dashboardBody(
               )
             )
     ),
-    tabItem("Tab3",
+    tabItem("Charts",
             fluidRow(
               box(
                 width = 12, status = "primary", solidHeader = TRUE,
-                title = "Country Map",
-                plotOutput("WorldMap3", height = "600")
-              ),
-              box(
-                width = 12, color = "light-blue",
-                title = "Option",
-                textOutput("Text3"),
-                selectInput("CountryName", label = "Select a Country",
-                            choices = c("China", "Germany", "Canada"), selected = "China")
+                title = "Chart Analysis",
+                textOutput("Charts")
               )
             )
     ),
-    tabItem("Tab4",
-            textOutput("Text4")
+    tabItem("Tables",
+            fluidRow(
+              box(
+                textOutput("Tables")
+              )
+            )
     )
   )
 )
