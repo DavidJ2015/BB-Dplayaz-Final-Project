@@ -75,6 +75,12 @@ body <- dashboardBody(
     ),
     tabItem("Charts",
             fluidRow(
+              box(
+                width = 8, 
+                title = "Widgets for all",
+                radioButtons("PerorNum", label = "Type of Data", choices = list("Percentages" = TRUE, "Numerical" = FALSE))
+              )
+            ),
               column(width = 6,
                 box(
                   width = NULL, solidHeader = TRUE,
@@ -89,6 +95,8 @@ body <- dashboardBody(
                  box(
                    width = NULL, solidHeader = TRUE,
                    title = "Column Chart",
+                   selectInput("SelectAYearChart", label = "Select A Year", choices = 1960:2017),
+                   selectInput("Count_SelChart", label = "Country Selection", choices = CountryNames, multiple = TRUE),
                    textOutput("Charts2"),
                    plotOutput("distPlot2")
                  )
@@ -98,15 +106,12 @@ body <- dashboardBody(
                        width = NULL, solidHeader = TRUE,
                        title = "Plot Diagram",
                        textOutput("Charts3"),
-                       plotOutput("distPlot3")
+                       plotOutput("distPlot3"),
+                       selectInput("SelectAYearChart", label = "Select A Year", choices = 1960:2017),
+                       radioButtons("consecutiveYearsChart", label = "Consecutive Years To Compare", choices = 1:5),
+                       selectInput("Count_SelChart", label = "Country Selection", choices = CountryNames)
                      )
-              ),
-              box(
-                width = 6, 
-                title = "Widgets for all",
-                radioButtons("PerorNum", label = "Type of Data", choices = list("Percentages" = TRUE, "Numerical" = FALSE))
               )
-            )
     ),
     tabItem("Tables",
             fluidRow(
@@ -132,14 +137,14 @@ body <- dashboardBody(
                   title = "Single Data Point Option",
                   selectInput("SelectAYear", label = "Select A Year", choices = 1960:2017),
                   radioButtons("consecutiveYears", label = "Consecutive Years To Compare", choices = 1:5),
-                  selectInput("Count_Sel", label = "Country Selection", choices = CountryNames)
+                  selectInput("Count_SelData", label = "Country Selection", choices = CountryNames, multiple = TRUE)
                 )
               ),
               column(width = 4,
                 box(width = NULL,
                     title = "Single Year Option",
                     selectInput("SelectYear", label = "Select A Year", choices = 1960:2017),
-                    selectInput("Count_Sel", label = "Country Selection", choices = CountryNames)
+                    selectInput("Count_SelYear", label = "Country Selection", choices = CountryNames, multiple = TRUE)
                     
                 )
               ),
@@ -149,7 +154,8 @@ body <- dashboardBody(
                   width = NULL,
                   title = "Single Country Option",
                   selectInput("SelectYears", label = "Select A Year", choices = 1960:2017),
-                  selectInput("Count_Sel", label = "Country Selection", choices = CountryNames)
+                  radioButtons("consecutiveYearsCountry", label = "Consecutive Years To Compare", choices = 1:5),
+                  selectInput("Count_SelCountry", label = "Country Selection", choices = CountryNames)
                   
                 )
 

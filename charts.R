@@ -39,6 +39,7 @@ Graph_Bar <- function(indicator, year, list_of_countries) {
 
 #Pie Chart
 Graph_Pie <- function(indicator, year, list_of_countries) {
+  print(indicator)
   graph_filtered <- OneYear(year, list_of_countries, list(indicator))
   p_bar_chart <- ggplot(graph_filtered, aes(name ,value, col = name)) + geom_bar(stat = "identity") +
     coord_cartesian(ylim = c(0, 100)) +
