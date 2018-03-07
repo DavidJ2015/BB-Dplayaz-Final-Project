@@ -36,7 +36,7 @@ L3 <- Countries()[[1]]
 
 # This brings about a list of 304 countries, and so this should be very, very useful
 L4 <- Countries()[[2]]
-flatten(L4)
+L4 <- flatten(L4)
 write.csv(L4, file = "L4.csv")
 
 ## This is not a very useful source of information.  We probably dont want to use it.
@@ -63,7 +63,7 @@ Indicators <- function(){
 }
 
 # List that describes L8 below
-#L7 <- Indicators()[[1]] %>% flatten()
+#L7 <- Indicators()[[1]]
 
 # This is a data frame that has a list of different "indicators" that can be used to search the API site for different statistics/
 # data concerning either all the countries or certain countries during or over a time period.  This is ALOT, as it has a total 
@@ -87,8 +87,7 @@ searchThroughApiByYear <- function(indicatorValue, yearRange){
   query <- paste0("?date=", yearRange, "&format=json")
   url5 <- paste0(base, pathing, query)
   variableValue <- GET(url = url5)
-  listOfValues <- content(variableValue, "text") %>% fromJSON()
-  listOfValues[[2]]
+  List_Indicators <- content(variableValue, "text") %>% fromJSON()
 }
 
 # This function returns the number of entries of a certain indicator within a certain year
