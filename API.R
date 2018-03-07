@@ -144,14 +144,12 @@ staByCountry <- function(list_of_indicators, list_of_years, country){
   } else{
     years_name <- list_of_years[[1]]
   }
-  new_data <- staFiltered(list_of_indicators[[1]], years_name)[[2]] %>% flatten() %>% select(country.value, 
-                                                                date, value) %>% filter(country.value == country)
+  new_data <- staByData(list_of_indicators[[1]], list_of_years, list(country)) %>% mutate(data = paste0("Value", 1))
   for(i in 2:length(list_of_indicators)){
-    new_list <- staFiltered(list_of_indicators[[i]], years_name)[[2]] %>% flatten() %>% select(country.value, 
-                                                                    date, value) %>% filter(country.value == country)
-    colnames(new_list) <- c("country.value", "date", paste0("Value", i))
-    new_data <- left_join(new_data, new_list)
+    new_list <- staByData(list_of_indicators[[i]], list_of_years, list(country)) %>% mutate(data = paste0("Value", i))
+    new_data <- rbind(new_data, new_list)
   }
+  new_data <- new_data %>% select(-country)
   return(new_data)
 }
 
@@ -160,8 +158,7 @@ staByData <- function(indicator, list_of_years, list_of_countries){
    for(i in 1:length(list_of_years)){
     new_data <- data.frame(country = unlist(list_of_countries))
     new_data$value <- staByYear(list(indicator), list_of_years[[i]], list_of_countries)$value
-    colnames(new_data) <- c("country", paste("Year", list_of_years[[i]]))
-    print(new_data)
+    colnames(new_data) <- c("country", paste0("Year", list_of_years[[i]]))
     starter_data <- left_join(starter_data, new_data)
    }
    return(starter_data)

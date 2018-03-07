@@ -77,7 +77,13 @@ body <- dashboardBody(
                   title = "Single Data Point Option",
                   dateRangeInput("SelectYears", label = "Select Data", min = "1960-01-01", max = "2017-01-01", 
                             start = "2000-01-01", end = "2015-01-01"),
-                  selectInput("Count_Sel", label = "Country Selection", choices = )
+                  selectInput("Count_Sel", label = "Country Selection", choices = list(1, 2 ,3))
+                )
+              ),
+              column(width = 4,
+                box(width = NULL,
+                    title = "Singe Year Option",
+                    dateInput()
                 )
               )
              
