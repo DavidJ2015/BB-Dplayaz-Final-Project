@@ -5,6 +5,7 @@ header <- dashboardHeader(title = "The World Bank Database")
 
 sidebar <- dashboardSidebar(
   sidebarMenu(
+
     menuItem("Data Acknowledgements", tabName = "Tab1", icon = icon("globe")),
     menuItem("The World by Maps", tabName = "Tab2", icon = icon("globe")),
     menuItem("The World by Charts", tabName = "Tab3", icon = icon("globe")),
@@ -12,7 +13,7 @@ sidebar <- dashboardSidebar(
              sliderInput("SliderData", "Slider", min = 0, max = 250, value = 500),
              dateInput("SpeYear", "Date of Curiosity", value = "2000-01-01")
     )
-  ) 
+  )
 )
 
 body <- dashboardBody(

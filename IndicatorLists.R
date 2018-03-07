@@ -1,3 +1,5 @@
+
+
 Unemployment <- list(Unemployment_Percent.Tot.Labor.Force = "SL.UEM.TOTL.ZS", Unemployed.Males_Percent.Male.LF = "SL.UEM.TOTL.MA.ZS", 
                      Unemployed_Percent.Female.LF = "SL.UEM.TOTL.FE.ZS", Percent.Youth.Not.In.Education.Employment.Or.Training = "SL.UEM.NEET.ZS",
                      Long.Term.Unemployment_Percent.Tot.Unemp = "SL.UEM.LTRM.ZS", Percent.Unemployed.With.Basic.Ed = "SL.UEM.BASC.ZS", 
@@ -17,7 +19,7 @@ Education <- list(Public.Expend.Education_Percent.GDP = "SE.XPD.EDUC.ZS", Percen
                   Educational.Attainment.Bachlors.Male = "SE.TER.CUAT.BA.MA.ZS", Educational.Attainment.Bachlors.Female = "SE.TER.CUAT.BA.FE.ZS",
                   Educational.Attainment.Doctoral.Percent.Pop = "SE.TER.CUAT.DO.ZS")
 
-Population <- list(Population.Total = "P.POP.TOTL", Population.Male = "SP.POP.TOTL.MA.IN", Population.Female = "SP.POP.TOTL.FE.IN",
+Population <- list(Population.Total = "SP.POP.TOTL", Population.Male = "SP.POP.TOTL.MA.IN", Population.Female = "SP.POP.TOTL.FE.IN",
                    Urban.Population = "SP.URB.TOTL", Rural.Population = "SP.RUR.TOTL", Percent.Urban.Population = "SP.URB.TOTL.IN.ZS",
                    Percent.Rural.Population = "SP.RUR.TOTL.ZS", Population.Age.15to64 = "SP.POP.1564.TO", Percent.Population.Age.15to64 = "SP.POP.1564.TO.ZS",
                    Percent.Male.Pop.Age.15to64 = "SP.POP.1564.MA.ZS", Percent.Female.Pop.Age.15to64 = "SP.POP.1564.FE.ZS", 
