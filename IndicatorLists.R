@@ -1,3 +1,5 @@
+
+
 Unemployment <- list(Unemployment_Percent.Tot.Labor.Force = "SL.UEM.TOTL.ZS", Unemployed.Males_Percent.Male.LF = "SL.UEM.TOTL.MA.ZS", 
                      Unemployed_Percent.Female.LF = "SL.UEM.TOTL.FE.ZS", Percent.Youth.Not.In.Education.Employment.Or.Training = "SL.UEM.NEET.ZS",
                      Long.Term.Unemployment_Percent.Tot.Unemp = "SL.UEM.LTRM.ZS", Percent.Unemployed.With.Basic.Ed = "SL.UEM.BASC.ZS", 

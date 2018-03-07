@@ -61,13 +61,13 @@ Indicators <- function(){
 }
 
 # List that describes L8 below
-#L7 <- Indicators()[[1]]
+#L7 <- Indicators()[[1]] %>% flatten()
 
 # This is a data frame that has a list of different "indicators" that can be used to search the API site for different statistics/
 # data concerning either all the countries or certain countries during or over a time period.  This is ALOT, as it has a total 
 # of 17066 rows (please don't push a list like this to gitHub:  it wont work)  I have deselected both L7 and L8 below so that your 
 # doesn't run this function twice.  You shouldn't need your computer to write down this data frame.
-# L8 <- Indicators()[[2]]
+# L8 <- Indicators()[[2]] %>% flatten()
 
 # This is a basic search of all countries with a certain indicator
 searchThroughApi <- function(indicatorValue){
@@ -108,7 +108,7 @@ staFiltered <- function(indicator, year){
 
 country_list <- Countries()[[2]] %>% select(id, name)
 
-staByCountry <- function(indicator, year, list_of_countries){
+staByYear <- function(indicator, year, list_of_countries){
   entries <- staEntries(indicator, year)
   pathing <- paste0("countries/all/indicators/",indicator)
   query <- paste0("?date=", year, "&per_page=", entries, "&format=json")
@@ -136,3 +136,31 @@ test_function <- function(country, vector){
   }
   return(FALSE)
 }
+
+staByCountry <- function(list_of_indicators, list_of_years, country){
+  length <- length(list_of_years)
+  years_name <- paste0( list_of_years[[1]], ":", list_of_years[[length]])
+  new_data <- staFiltered(list_of_indicators[[1]], years_name)[[2]] %>% flatten() %>% select(country.value, 
+                                                                date, value) %>% filter(country.value == country)
+  for(i in 2:length(list_of_indicators)){
+    new_list <- staFiltered(list_of_indicators[[i]], years_name)[[2]] %>% flatten() %>% select(country.value, 
+                                                                    date, value) %>% filter(country.value == country)
+    colnames(new_list) <- c("country.value", "date", paste("Value", i))
+    new_data <- left_join(new_data, new_list)
+  }
+  return(new_data)
+}
+
+staByData <- function(indicator, list_of_years, list_of_countries){
+   starter_data <- data.frame(country = unlist(list_of_countries))
+   for(i in 1:length(list_of_years)){
+    new_data <- data.frame(country = unlist(list_of_countries))
+    new_data$value <- staByYear(list(indicator), list_of_years[[i]], list_of_countries)$value
+    colnames(new_data) <- c("country", paste("Year", list_of_years[[i]]))
+    print(new_data)
+    starter_data <- left_join(starter_data, new_data)
+   }
+   return(starter_data)
+}
+
+
