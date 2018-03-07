@@ -34,6 +34,11 @@ function(input, output, session) {
   output$CountryByVariable <- renderPlot({
     CountryColor(input$CountryByVariableSelect)
   })
+  
+  input$Indicators
+  output$DataAckn <- renderText({
+    input
+  })
 }
 
 # Source code - https://rstudio.github.io/shinydashboard/examples.html
