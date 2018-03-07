@@ -139,7 +139,11 @@ test_function <- function(country, vector){
 
 staByCountry <- function(list_of_indicators, list_of_years, country){
   length <- length(list_of_years)
-  years_name <- paste0( list_of_years[[1]], ":", list_of_years[[length]])
+  if(length(list_of_years) > 1){
+    years_name <- paste0( list_of_years[[1]], ":", list_of_years[[length]])
+  } else{
+    years_name <- list_of_years[[1]]
+  }
   new_data <- staFiltered(list_of_indicators[[1]], years_name)[[2]] %>% flatten() %>% select(country.value, 
                                                                 date, value) %>% filter(country.value == country)
   for(i in 2:length(list_of_indicators)){
