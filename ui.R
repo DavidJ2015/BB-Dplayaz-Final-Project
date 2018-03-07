@@ -80,6 +80,7 @@ body <- dashboardBody(
                   width = NULL, solidHeader = TRUE,
                   title = "Pie Chart",
                   selectInput("SelectAYearPie", label = "Select A Year", choices = 1960:2017),
+                  selectInput("Count_SelPie", label = "Country Selection", choices = CountryNames, multiple = TRUE),
                   textOutput("Charts1"),
                   plotOutput("distPlot1")
                 )
@@ -99,6 +100,11 @@ body <- dashboardBody(
                        textOutput("Charts3"),
                        plotOutput("distPlot3")
                      )
+              ),
+              box(
+                width = 6, 
+                title = "Widgets for all",
+                radioButtons("PerorNum", label = "Type of Data", choices = list("Percentages" = TRUE, "Numerical" = FALSE))
               )
             )
     ),

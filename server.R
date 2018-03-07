@@ -58,8 +58,12 @@ function(input, output, session) {
   })
   
   output$distPlot1 <- renderPlot({
-    Graph_Pie(input$Indicators, input$SelectAYearPie)
-    
+    if(input$PerorNum){
+      Graph_Pie(input$PercentIndicator[[1]], input$SelectAYearPie, input$Count_SelPie)
+    } else{
+      Graph_Pie(input$Indicators[[1]], input$SelectAYearPie, input$Count_SelPie)
+    }
+
   })
 
 }
