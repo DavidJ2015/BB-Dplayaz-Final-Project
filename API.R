@@ -166,7 +166,7 @@ staByData <- function(indicator, list_of_years, list_of_countries){
   return(starter_data)
 }
 intro <- "This project uses the Health Nutrition and Population Statistics found within the database located
-    on "The World Bank" website.  The direct link is listed here. 
+    on 'The World Bank' website.  The direct link is listed here. 
     (https://datacatalog.worldbank.org/dataset/health-nutrition-and-population-statistics)  As affirmed by the website 
     name, the organization behind this data is The World Bank.  The World Bank has tasked itself with ending world poverty 
     and supporting developing countries, and through their goals, they obtain data through research that they promote, and as 
