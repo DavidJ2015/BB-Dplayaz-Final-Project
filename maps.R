@@ -76,13 +76,15 @@ CountryColor <- function(Col){
 }
 
 #CountryAPIColor("Population[[1]]", "2010", "list(\"China\", \"Vietnam\", \"Canada\")")
-CountryAPIColor <- function(Indicator, Year, Countries){
-  IndicatorPaste <- paste0(Indicator, "[[1]]")
+CountryAPIColor <- function(Indicator, Year, Countries, Cat){
+  Catpaste <- paste0("[[", Cat,"]]")
+  IndicatorPaste <- paste0(Indicator, Catpaste)
   x <- paste0(IndicatorPaste, ", ", Year, ", ", Countries, ")")
   APIData <- eval(parse(text=paste("staByYear(", x, sep = "")))
   APIData <- flatten(APIData)
+  APIData <- APIData %>% mutate(value = replace(value, is.na(value),0))
   GetData <- APIData %>% mutate(iso2Code = countrycode(APIData$countryiso3code, "iso3c", "iso2c", warn = FALSE))
   ToPlotData <- JoinData %>% inner_join(GetData, L4, by = "iso2Code")
   return(CreateWorldMap + geom_polygon(data = ToPlotData, aes(x = long, y = lat, group = group, fill = value), color = "black") + 
-           coord_fixed(1.3) + labs(x = "Longitude", y = "Latitude", fill=""))
+           coord_fixed(1.3) + labs(x = "Longitude", y = "Latitude", fill=ToPlotData$indicator.value))
 }
