@@ -21,7 +21,7 @@ function(input, output, session) {
   })
   
   output$Tables <- renderText({
-    "Tables gallore, you cannot ignore"
+    "Table generated here (Numbers Only [No Percentages]):"
   })
   
   output$WorldMap <- renderPlot({
@@ -46,14 +46,21 @@ function(input, output, session) {
   })
   
   output$TableIn <- renderTable({
-    if(input$tableChoices == "countries"){
-      CountryNames
-    }
-    else if(input$tableChoices == "indicator"){
-      oneIndicator()
+    if(input$tableChoices == "indicator"){
+      year <- as.numeric(input$SelectAYear)
+      year_last <- as.numeric(input$consecutiveYears) + as.numeric(input$SelectAYear)
+      year_list <- year:year_last
+      year_list <- as.character(year_list)
+      year_list <- as.list(year_list)
+      oneIndicator(input$Indicators[[1]], year_list, input$Count_SelData)
     }
     else if(input$tableChoices == "country"){
-      oneCountry()
+      year <- as.numeric(input$SelectYear)
+      year_last <- as.numeric(input$consecutiveYearsCountry) + year
+      year_list <- year:year_last
+      year_list <- as.character(year_list)
+      year_list <- as.list(year_list)
+      oneCountry(input$Count_SelCountry, year_list, as.list(input$Indicators))
     }
     else if(input$tableChoices == "year"){
       OneYear()

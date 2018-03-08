@@ -25,11 +25,13 @@ OneYear <- function(year, range_countries, range_data){
   return(data_list)
 }
 
-#Year range must be a vector of numbers
+#Calls upon staByCountry function in API.
 oneCountry <- function(Country_name, Year_Range, data_list){
   staByCountry(data_list, Year_Range, Country_name)
   }
-  
+
+#A data table that returns rows of countries and columns of years and each column is associated with
+#one indicator value.
 oneIndicator <- function(indicator, Year_Range, Country_List){
   staByData(indicator, Year_Range, Country_List)
 }

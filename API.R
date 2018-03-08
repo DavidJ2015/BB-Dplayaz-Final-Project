@@ -108,8 +108,10 @@ staFiltered <- function(indicator, year){
   pullOurData <- content(ourData, "text") %>% fromJSON()
 }
 
+#List of countries to be used in functions below.
 country_list <- Countries()[[2]] %>% select(id, name)
 
+#This returns a data frame that looks at only one year and one indicator. 
 staByYear <- function(indicator, year, list_of_countries){
   entries <- staEntries(indicator, year)
   pathing <- paste0("countries/all/indicators/",indicator)
@@ -129,7 +131,7 @@ staByYear <- function(indicator, year, list_of_countries){
   return(data_frame)
 }
 
-
+#Returns a vector of true and false to be used for filtering. 
 test_function <- function(country, vector){
   for(i in 1:length(vector)){
     if(country == vector[i]){
@@ -139,6 +141,7 @@ test_function <- function(country, vector){
   return(FALSE)
 }
 
+#This returns a data table with only indicator and year values
 staByCountry <- function(list_of_indicators, list_of_years, country){
   length <- length(list_of_years)
   if(length(list_of_years) > 1){
@@ -147,14 +150,19 @@ staByCountry <- function(list_of_indicators, list_of_years, country){
     years_name <- list_of_years[[1]]
   }
   new_data <- staByData(list_of_indicators[[1]], list_of_years, list(country)) %>% mutate(data = paste0("Value", 1))
-  for(i in 2:length(list_of_indicators)){
-    new_list <- staByData(list_of_indicators[[i]], list_of_years, list(country)) %>% mutate(data = paste0("Value", i))
-    new_data <- rbind(new_data, new_list)
+  print(head(new_data))
+  if(length(list_of_indicators) > 1){
+    for(i in 2:length(list_of_indicators)){
+      new_list <- staByData(list_of_indicators[[i]], list_of_years, list(country)) %>% mutate(data = paste0("Value", i))
+      new_data <- rbind(new_data, new_list)
+      }
   }
   new_data <- new_data %>% select(-country)
   return(new_data)
 }
 
+#This returns a data table with only columns of counties and rows of years. The value of the rows and
+#columns are associated with one indicator.
 staByData <- function(indicator, list_of_years, list_of_countries){
   starter_data <- data.frame(country = unlist(list_of_countries))
   for(i in 1:length(list_of_years)){
