@@ -16,11 +16,14 @@ World <- read.csv("World.csv", stringsAsFactors = FALSE)
 
 L4 <- read.csv(file = "L4.csv")
 
+# Group World and L4 by iso2Code
 JoinData <- inner_join(World, L4, by = "iso2Code")
 
+# Map the whole world
 CreateWorldMap <- ggplot() + geom_polygon(data = World, aes(x = long, y = lat, group = group)) + 
   coord_fixed(1.3) + labs(x = "Longitude", y = "Latitude")
 
+# Map a country
 CreateMap <- function(Country){
   if (any((Country) == World$iso2Code)){
     Area <- World %>% filter(iso2Code == Country)
@@ -35,6 +38,7 @@ CreateMap <- function(Country){
            labs(x = "Longitude", y = "Latitude"))
 }
 
+# Map a high resolution country
 CreateMapHiRes <- function(Country){
   if (any((Country) == WorldHiRes$iso2Code)){
     Area <- WorldHiRes %>% filter(iso2Code == Country)
@@ -49,6 +53,7 @@ CreateMapHiRes <- function(Country){
            labs(x = "Longitude", y = "Latitude"))
 }
 
+# Highlight a country
 CountryHighlight <- function(Country){
   if (any((Country) == World$iso2Code)){
     Highlight <- World %>% filter(iso2Code == Country)
@@ -62,12 +67,14 @@ CountryHighlight <- function(Country){
            geom_label_repel(data = Capital, aes(x = long, y = lat, label = capital), color = "#325564", size = 3.5))
 }
 
+# Map a country and color code by varibles
 CountrySearch <- function(Col, Var){
   FilterData <- JoinData %>% filter(JoinData[Col] == Var)
   return(CreateWorldMap + geom_polygon(data = FilterData, aes(x = long, y = lat, group = group), fill = "green") + 
            coord_fixed(1.3) + labs(x = "Longitude", y = "Latitude"))
 }
 
+# Map a country
 CountryColor <- function(Col){
   ToPlotData <- JoinData
   colnames(ToPlotData)[colnames(ToPlotData) == Col] <- "Fill"
@@ -75,7 +82,7 @@ CountryColor <- function(Col){
            coord_fixed(1.3) + labs(x = "Longitude", y = "Latitude", fill=""))
 }
 
-#CountryAPIColor("Population[[1]]", "2010", "list(\"China\", \"Vietnam\", \"Canada\")")
+# Map 1 selected indicator in 1 selected year, for all contries
 CountryAPIColor <- function(Indicator, Year, Countries, Cat){
   Catpaste <- paste0("[[", Cat,"]]")
   IndicatorPaste <- paste0(Indicator, Catpaste)

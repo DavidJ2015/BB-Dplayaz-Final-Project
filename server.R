@@ -1,8 +1,4 @@
-source("./maps.R")
 source("./IndicatorLists.R")
-source("./Table.R")
-source("./charts.R")
-
 library(dplyr)
 library(ggplot2)
 library(maps)
@@ -13,15 +9,19 @@ CountryNames <- Data %>% select(name) %>% mutate(country_name = name) %>% select
 
 function(input, output, session) {
   output$AppIntro <- renderText({
-    print(intro)
+    "Introduction to this application here"
   })
   
   output$DataAckn <- renderText({
-    "https://datacatalog.worldbank.org/dataset/health-nutrition-and-population-statistics"
+    "Acknoledgments about Data from World Bank here"
+  })
+  
+  output$Charts <- renderText({
+    "Got some charts here..."
   })
   
   output$Tables <- renderText({
-    "Table generated here:"
+    "Tables gallore, you cannot ignore"
   })
   
   output$WorldMap <- renderPlot({
@@ -41,27 +41,22 @@ function(input, output, session) {
     CountryAPIColor(x, y, "list(country_list)", cat)
   })
   
+  output$DataAckn <- renderText({
+    input$Indicators
+  })
+  
   output$TableIn <- renderTable({
     if(input$tableChoices == "countries"){
-      }
+      CountryNames
+    }
     else if(input$tableChoices == "indicator"){
-      year <- as.numeric(input$SelectAYear)
-      year_last <- as.numeric(input$consecutiveYears) + as.numeric(input$SelectAYear)
-      year_list <- year:year_last
-      year_list <- as.character(year_list)
-      year_list <- as.list(year_list)
-      oneIndicator(input$Indicators[[1]], year_list, input$Count_SelData)
+      oneIndicator()
     }
     else if(input$tableChoices == "country"){
-      year <- as.numeric(input$SelectYear)
-      year_last <- as.numeric(input$consecutiveYearsCountry) + year
-      year_list <- year:year_last
-      year_list <- as.character(year_list)
-      year_list <- as.list(year_list)
-      oneCountry(input$Count_SelCountry, year_list, input$Indicators)
+      oneCountry()
     }
     else if(input$tableChoices == "year"){
-      OneYear(input$SelectYear, input$Count_SelYear, input$Indicators)
+      OneYear()
     }
   })
   
@@ -85,29 +80,25 @@ function(input, output, session) {
   })
   
   output$distPlot3<- renderPlot({
-    year <- as.numeric(input$SelectAYearChart)
-    year_last <- as.numeric(input$consecutiveYearsChart) + year
+    year <- input$SelectAYearChart
+    year_last <- input$consecutiveYearsChart + year
     year_list <- year:year_last
-    year_list <- as.character(year_list)
-    year_list <- as.list(year_list)
-    print(year_list)
     if(input$PerorNum){
       value <- as.character(input$PercentIndicators[[1]])
       value2 <- as.character(input$PercentIndicators[[2]])
       Graph_Dot(value, value2, year_list, input$Count_SelChart)
     } else{
-      value <- as.character(input$Indicators[[1]])
-      value2 <- as.character(input$Indicators[[2]])
-      Graph_Dot(value, value2, year_list, input$Count_SelChart)
+      Graph_Bar(input$Indicators[[1]], input$Indicators[[2]], year_list, input$Count_SelChart)
     }
   })
   
   observe({
-    x <- paste0(input$CountryByVariableSelect, ")")
+    input <- toString(input$CountryByVariableSelect)
+    x <- paste0(input, ")")
     var <- eval(parse(text=paste("length(", x, sep = "")))
+    var <- as.numeric(var)
     updateSelectInput(session, "SelectCat", choices = 1:var)
   })
-  
 }
 
 # Source code - https://rstudio.github.io/shinydashboard/examples.html
