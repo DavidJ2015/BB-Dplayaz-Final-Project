@@ -81,6 +81,7 @@ function(input, output, session) {
     year <- input$SelectAYearChart
     year_last <- input$consecutiveYearsChart + year
     year_list <- year:year_last
+    year_list <- as.character(year_list)
     if(input$PerorNum){
       value <- as.character(input$PercentIndicators[[1]])
       value2 <- as.character(input$PercentIndicators[[2]])
