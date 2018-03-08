@@ -63,7 +63,7 @@ function(input, output, session) {
       oneCountry(input$Count_SelCountry, year_list, as.list(input$Indicators))
     }
     else if(input$tableChoices == "year"){
-      OneYear()
+      OneYear(input$SelectYear, input$Count_SelYear, input$Indicators)
     }
   })
   
