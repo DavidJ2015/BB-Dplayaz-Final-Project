@@ -30,14 +30,12 @@ sidebar <- dashboardSidebar(
     menuItem("The World by Charts", tabName = "Charts", icon = icon("globe")),
     menuItem("The World by Tables", tabName = "Tables", icon = icon("table")),
     menuItem("Indicators", tabName = "Indicators", icon = icon("globe"), 
-             selectInput("Indicators", "Numbers", list("Unemployment" = c(Employment),
-                                                                            "Education" = c(Education),
+             selectInput("Indicators", "Numbers", list("Education" = c(Education),
                                                                             "Population" = c(Population),
                                                                             "Health" = c(Health),
                                                                             "Economy" = c(Economy),
                                                                             "Fun Facts" = c(FunFacts)), selected = Population$Total, multiple = TRUE),
-             selectInput("PercentIndicators", "Percentages", list("Unemployment" = c(UnemploymentPercentages),
-                                                                                       "Education" = c(EducationPercentages),
+             selectInput("PercentIndicators", "Percentages", list("Education" = c(EducationPercentages),
                                                                                        "Population" = c(PopulationPercentages),
                                                                                        "Health" = c(HealthPercentages),
                                                                                        "Economy" = c(EconomyPercentages),
@@ -139,17 +137,16 @@ body <- dashboardBody(
               column( width = 4, 
                       box(width = NULL,
                           title = "Table Options",
-                          radioButtons("tableChoices", label = "Table Types", choices = list("Country & Regions List" = "countries", 
-                                                                                             "Single Data Point" = "indicator", 
-                                                                                             "One Country" = "country", 
-                                                                                             "One Year" = "year"))
+                          radioButtons("tableChoices", label = "Table Types", choices = list("Single Data Point" = "indicator", 
+                                                                                             "Single Year" = "year",
+                                                                                             "Single Country" = "country"))
                           
                       )
               ),
               column(width = 4,
                      
                      box(width = NULL,
-                         title = "Single Data Point Option",
+                         title = "Single Data Point Option (One or More Countries & One Indicator)",
                          selectInput("SelectAYear", label = "Select A Year", choices = 1960:2017),
                          radioButtons("consecutiveYears", label = "Consecutive Years To Compare", choices = 1:5),
                          selectInput("Count_SelData", label = "Country Selection", choices = CountryNames, multiple = TRUE)
@@ -157,7 +154,7 @@ body <- dashboardBody(
               ),
               column(width = 4,
                      box(width = NULL,
-                         title = "Single Year Option",
+                         title = "Single Year Option (One or More Countries & One or More Indicators)",
                          selectInput("SelectYear", label = "Select A Year", choices = 1960:2017),
                          selectInput("Count_SelYear", label = "Country Selection", choices = CountryNames, multiple = TRUE)
                          
@@ -167,7 +164,7 @@ body <- dashboardBody(
               column(width = 4,
                      box(
                        width = NULL,
-                       title = "Single Country Option",
+                       title = "Single Country Option (One or More Indicators)",
                        selectInput("SelectYears", label = "Select A Year", choices = 1960:2017),
                        radioButtons("consecutiveYearsCountry", label = "Consecutive Years To Compare", choices = 1:5),
                        selectInput("Count_SelCountry", label = "Country Selection", choices = CountryNames)

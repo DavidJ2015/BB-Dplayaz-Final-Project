@@ -21,7 +21,7 @@ function(input, output, session) {
   })
   
   output$Tables <- renderText({
-    "Table generated here:"
+    "Table generated here (Numbers Only [No Percentages]):"
   })
   
   output$WorldMap <- renderPlot({
@@ -42,9 +42,7 @@ function(input, output, session) {
   })
   
   output$TableIn <- renderTable({
-    if(input$tableChoices == "countries"){
-      }
-    else if(input$tableChoices == "indicator"){
+    if(input$tableChoices == "indicator"){
       year <- as.numeric(input$SelectAYear)
       year_last <- as.numeric(input$consecutiveYears) + as.numeric(input$SelectAYear)
       year_list <- year:year_last
@@ -58,7 +56,7 @@ function(input, output, session) {
       year_list <- year:year_last
       year_list <- as.character(year_list)
       year_list <- as.list(year_list)
-      oneCountry(input$Count_SelCountry, year_list, input$Indicators)
+      oneCountry(input$Count_SelCountry, year_list, as.list(input$Indicators))
     }
     else if(input$tableChoices == "year"){
       OneYear(input$SelectYear, input$Count_SelYear, input$Indicators)
