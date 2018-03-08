@@ -8,11 +8,18 @@ library(dplyr)
 
 L4 <- read.csv(file = "L4.csv", stringsAsFactors = FALSE)
 Data <- L4 %>% filter(region.id != "NA", name != "Virgin Islands (U.S.)", name != "Tuvalu", name != "British Virgin Islands", name != "Gibraltar", name != "Channel Islands", name != "Curacao", name != "Micronesia, Fed. Sts.", name != "Hong Kong SAR, China", name != "Macao SAR, China", name != "St. Martin (French part)", name != "Sint Maarten (Dutch part)")
+
+#This is the list of all the countries that will be used within the application.
 CountryNames <- Data %>% select(name)
+
+#This is a list in which the countries are associated with their identification.
 CountryCodes <- Data %>% select(iso2Code)
+
 #Variable <- c("Region" = "region.value", "Income Level" = "incomeLevel.value")colnames(IndicatorsData)
 IndicatorsData <- read.csv(file = "IndicatorsData.csv", stringsAsFactors = FALSE)
 Variable <- colnames(IndicatorsData)
+Variable <- c(Variable)
+Variable <- Variable[-1]
 
 header <- dashboardHeader(title = "The World Bank Database")
 
@@ -76,6 +83,7 @@ body <- dashboardBody(
                                  selectInput("MapsByCountrySelect", label = "Select a Country", choices = CountryNames, selected = "Canada")),
                 conditionalPanel(condition = "input.tabselected == 3",
                                  selectInput("CountryByVariableSelect", label = "Select a Variable", choices = c(Variable), selected = "Population"),
+                                 selectInput("SelectCat", label = "Select a Category", choices = 1:20, selected = 1),
                                  selectInput("SelectYear", label = "Select a Year", choices = 1960:2017, selected = "2012"))
               )
             )
@@ -175,5 +183,4 @@ body <- dashboardBody(
 
 
 dashboardPage(header, sidebar, body)
-
 # Source code - https://rstudio.github.io/shinydashboard/examples.html
