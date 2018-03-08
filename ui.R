@@ -18,6 +18,8 @@ CountryCodes <- Data %>% select(iso2Code)
 #Variable <- c("Region" = "region.value", "Income Level" = "incomeLevel.value")colnames(IndicatorsData)
 IndicatorsData <- read.csv(file = "IndicatorsData.csv", stringsAsFactors = FALSE)
 Variable <- colnames(IndicatorsData)
+Variable <- c(Variable)
+Variable <- Variable[-1]
 
 header <- dashboardHeader(title = "The World Bank Database")
 
