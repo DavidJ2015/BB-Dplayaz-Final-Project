@@ -17,15 +17,11 @@ function(input, output, session) {
   })
   
   output$DataAckn <- renderText({
-    "Acknowledgments about Data from World Bank here"
-  })
-  
-  output$Charts <- renderText({
-    "Got some charts here..."
+    "https://datacatalog.worldbank.org/dataset/health-nutrition-and-population-statistics"
   })
   
   output$Tables <- renderText({
-    "Tables gallore, you cannot ignore"
+    "Table generated here:"
   })
   
   output$WorldMap <- renderPlot({
@@ -44,14 +40,9 @@ function(input, output, session) {
     CountryAPIColor(x, y, "list(country_list)")
   })
   
-  output$DataAckn <- renderText({
-    input$Indicators
-  })
-  
   output$TableIn <- renderTable({
     if(input$tableChoices == "countries"){
-      CountryNames
-    }
+      }
     else if(input$tableChoices == "indicator"){
       year_last <- input$consecutiveYears + input$SelectAYear
       year_list <- input$SelectAYear:year_last
