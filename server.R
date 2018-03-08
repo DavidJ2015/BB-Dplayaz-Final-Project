@@ -1,8 +1,8 @@
-source("packages.R")
-source("maps.R")
+source("./maps.R")
 source("./IndicatorLists.R")
 source("./Table.R")
 source("./charts.R")
+
 library(dplyr)
 library(ggplot2)
 library(maps)
@@ -39,7 +39,9 @@ function(input, output, session) {
   })
   
   output$CountryByVariable <- renderPlot({
-    CountryColor(input$CountryByVariableSelect)
+    x <- toString(input$CountryByVariableSelect)
+    y <- toString(input$SelectYear)
+    CountryAPIColor(x, y, "list(country_list)")
   })
   
   output$DataAckn <- renderText({
@@ -51,13 +53,19 @@ function(input, output, session) {
       CountryNames
     }
     else if(input$tableChoices == "indicator"){
-      oneIndicator()
+      year_last <- input$consecutiveYears + input$SelectAYear
+      year_list <- input$SelectAYear:year_last
+      year_list <- as.character(year_list)
+      oneIndicator(input$Indicators[[1]], year_list, input$Count_SelData)
     }
     else if(input$tableChoices == "country"){
-      oneCountry()
+      year_last <- input$consecutiveYearsCountry + input$SelectYear
+      year_list <- input$SelectYear:year_last
+      year_list <- as.character(year_list)
+      oneCountry(input$Count_SelCountry, year_list, input$Indicators)
     }
     else if(input$tableChoices == "year"){
-      OneYear()
+      OneYear(input$SelectYear, input$Count_SelYear, input$Indicators)
     }
   })
   
@@ -68,7 +76,7 @@ function(input, output, session) {
     } else{
       Graph_Pie(input$Indicators[[1]], input$SelectAYearPie, input$Count_SelPie)
     }
-
+    
   })
   
   output$distPlot2 <- renderPlot({
@@ -81,18 +89,23 @@ function(input, output, session) {
   })
   
   output$distPlot3<- renderPlot({
-    year <- input$SelectAYearChart
-    year_last <- input$consecutiveYearsChart + year
+    year <- as.numeric(input$SelectAYearChart)
+    year_last <- as.numeric(input$consecutiveYearsChart) + year
     year_list <- year:year_last
+    year_list <- as.character(year_list)
+    year_list <- as.list(year_list)
+    print(year_list)
     if(input$PerorNum){
       value <- as.character(input$PercentIndicators[[1]])
       value2 <- as.character(input$PercentIndicators[[2]])
       Graph_Dot(value, value2, year_list, input$Count_SelChart)
     } else{
-      Graph_Bar(input$Indicators[[1]], input$Indicators[[2]], year_list, input$Count_SelChart)
+      value <- as.character(input$PercentIndicators[[1]])
+      value2 <- as.character(input$PercentIndicators[[2]])
+      Graph_Dot(input$Indicators[[1]], input$Indicators[[2]], year_list, input$Count_SelChart)
     }
   })
-
+  
 }
 
 # Source code - https://rstudio.github.io/shinydashboard/examples.html
