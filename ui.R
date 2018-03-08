@@ -22,14 +22,14 @@ sidebar <- dashboardSidebar(
     menuItem("The World by Maps", tabName = "Maps", icon = icon("map-marker")),
     menuItem("The World by Charts", tabName = "Charts", icon = icon("globe")),
     menuItem("The World by Tables", tabName = "Tables", icon = icon("table")),
-    menuItem("The World's Indicators", tabName = "Indicators", icon = icon("globe"), 
-             selectInput("Indicators", "Numbers (Select one or more)", list("Unemployment" = c(Employment),
+    menuItem("Indicators", tabName = "Indicators", icon = icon("globe"), 
+             selectInput("Indicators", "Numbers", list("Unemployment" = c(Employment),
                                                                             "Education" = c(Education),
                                                                             "Population" = c(Population),
                                                                             "Health" = c(Health),
                                                                             "Economy" = c(Economy),
                                                                             "Fun Facts" = c(FunFacts)), selected = Population$Total, multiple = TRUE),
-             selectInput("PercentIndicators", "Percentages (Select one or more)", list("Unemployment" = c(UnemploymentPercentages),
+             selectInput("PercentIndicators", "Percentages", list("Unemployment" = c(UnemploymentPercentages),
                                                                                        "Education" = c(EducationPercentages),
                                                                                        "Population" = c(PopulationPercentages),
                                                                                        "Health" = c(HealthPercentages),
@@ -85,16 +85,16 @@ body <- dashboardBody(
             fluidRow(
               box(
                 width = 8, 
-                title = "Widgets for all",
-                radioButtons("PerorNum", label = "Type of Data", choices = list("Percentages" = TRUE, "Numerical" = FALSE))
+                title = "Type of Data to Compare",
+                radioButtons("PerorNum", label = "One Or The Other", choices = list("Percentages" = TRUE, "Numerical" = FALSE))
               )
             ),
             column(width = 6,
                    box(
                      width = NULL, solidHeader = TRUE,
-                     title = "Pie Chart",
+                     title = "Pie Chart (Select One Indicator)",
                      selectInput("SelectAYearPie", label = "Select A Year", choices = 1960:2017),
-                     selectInput("Count_SelPie", label = "Country Selection", choices = CountryNames, multiple = TRUE),
+                     selectInput("Count_SelPie", label = "Country Selection (One Or More)", choices = CountryNames, multiple = TRUE),
                      textOutput("Charts1"),
                      plotOutput("distPlot1")
                    )
@@ -102,9 +102,9 @@ body <- dashboardBody(
             column(width = 6,
                    box(
                      width = NULL, solidHeader = TRUE,
-                     title = "Column Chart",
+                     title = "Column Chart (Select One Indicator)",
                      selectInput("SelectAYearChart", label = "Select A Year", choices = 1960:2017),
-                     selectInput("Count_SelChart", label = "Country Selection", choices = CountryNames, multiple = TRUE),
+                     selectInput("Count_SelChart", label = "Country Selection (One Or More)", choices = CountryNames, multiple = TRUE),
                      textOutput("Charts2"),
                      plotOutput("distPlot2")
                    )
@@ -112,7 +112,7 @@ body <- dashboardBody(
             column(width = 12,
                    box(
                      width = NULL, solidHeader = TRUE,
-                     title = "Plot Diagram",
+                     title = "Plot Diagram (Select Two Indicators)",
                      textOutput("Charts3"),
                      plotOutput("distPlot3"),
                      selectInput("SelectAYearChart", label = "Select A Year", choices = 1960:2017),
