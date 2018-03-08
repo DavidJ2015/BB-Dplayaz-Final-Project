@@ -44,15 +44,19 @@ function(input, output, session) {
     if(input$tableChoices == "countries"){
       }
     else if(input$tableChoices == "indicator"){
-      year_last <- input$consecutiveYears + input$SelectAYear
-      year_list <- input$SelectAYear:year_last
+      year <- as.numeric(input$SelectAYear)
+      year_last <- as.numeric(input$consecutiveYears) + as.numeric(input$SelectAYear)
+      year_list <- year:year_last
       year_list <- as.character(year_list)
+      year_list <- as.list(year_list)
       oneIndicator(input$Indicators[[1]], year_list, input$Count_SelData)
     }
     else if(input$tableChoices == "country"){
-      year_last <- input$consecutiveYearsCountry + input$SelectYear
-      year_list <- input$SelectYear:year_last
+      year <- as.numeric(input$SelectYear)
+      year_last <- as.numeric(input$consecutiveYearsCountry) + year
+      year_list <- year:year_last
       year_list <- as.character(year_list)
+      year_list <- as.list(year_list)
       oneCountry(input$Count_SelCountry, year_list, input$Indicators)
     }
     else if(input$tableChoices == "year"){
@@ -91,9 +95,9 @@ function(input, output, session) {
       value2 <- as.character(input$PercentIndicators[[2]])
       Graph_Dot(value, value2, year_list, input$Count_SelChart)
     } else{
-      value <- as.character(input$PercentIndicators[[1]])
-      value2 <- as.character(input$PercentIndicators[[2]])
-      Graph_Dot(input$Indicators[[1]], input$Indicators[[2]], year_list, input$Count_SelChart)
+      value <- as.character(input$Indicators[[1]])
+      value2 <- as.character(input$Indicators[[2]])
+      Graph_Dot(value, value2, year_list, input$Count_SelChart)
     }
   })
   
