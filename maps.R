@@ -31,7 +31,7 @@ CreateMap <- function(Country){
   }
   return(ggplot() + geom_polygon(data = Area, aes(x = long, y = lat, group = group)) + coord_fixed(1.3) + 
            geom_point(data = Capital, aes(x = long, y = lat), color = "blue") + 
-           geom_label_repel(data = Capital, aes(x = long, y = lat, label = capital), color = 'red', size = 3.5) + 
+           geom_label_repel(data = Capital, aes(x = long, y = lat, label = capital), color = "#325564", size = 3.5) + 
            labs(x = "Longitude", y = "Latitude"))
 }
 
@@ -45,7 +45,7 @@ CreateMapHiRes <- function(Country){
   }
   return(ggplot() + geom_polygon(data = Area, aes(x = long, y = lat, group = group)) + 
            coord_fixed(1.3) + labs(x = "Longitude", y = "Latitude") + 
-           geom_label_repel(data = Capital, aes(x = long, y = lat, label = capital), color = 'red', size = 3.5) + 
+           geom_label_repel(data = Capital, aes(x = long, y = lat, label = capital), color = "#325564", size = 3.5) + 
            labs(x = "Longitude", y = "Latitude"))
 }
 
@@ -57,9 +57,9 @@ CountryHighlight <- function(Country){
   } else {
     stop()
   }
-  return(CreateWorldMap + geom_polygon(data = Highlight, aes(x = long, y = lat, group = group), fill = "red") + coord_fixed(1.3) + 
+  return(CreateWorldMap + geom_polygon(data = Highlight, aes(x = long, y = lat, group = group), fill = "#325564") + coord_fixed(1.3) + 
            geom_point(data = Capital, aes(x = long, y = lat), color = "blue") + 
-           geom_label_repel(data = Capital, aes(x = long, y = lat, label = capital), color = 'red', size = 3.5))
+           geom_label_repel(data = Capital, aes(x = long, y = lat, label = capital), color = "#325564", size = 3.5))
 }
 
 CountrySearch <- function(Col, Var){
@@ -86,4 +86,3 @@ CountryAPIColor <- function(Indicator, Year, Countries){
   return(CreateWorldMap + geom_polygon(data = ToPlotData, aes(x = long, y = lat, group = group, fill = value), color = "black") + 
            coord_fixed(1.3) + labs(x = "Longitude", y = "Latitude", fill=""))
 }
-

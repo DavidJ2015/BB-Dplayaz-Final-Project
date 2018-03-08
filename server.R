@@ -1,8 +1,3 @@
-source("./packages.R")
-source("./maps.R")
-source("./IndicatorLists.R")
-source("./Table.R")
-source("./charts.R")
 library(dplyr)
 library(ggplot2)
 library(maps)
