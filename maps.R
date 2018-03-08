@@ -74,3 +74,16 @@ CountryColor <- function(Col){
   return(CreateWorldMap + geom_polygon(data = ToPlotData, aes(x = long, y = lat, group = group, fill = Fill), color = "black") + 
            coord_fixed(1.3) + labs(x = "Longitude", y = "Latitude", fill=""))
 }
+
+#CountryAPIColor("Population[[1]]", "2010", "list(\"China\", \"Vietnam\", \"Canada\")")
+CountryAPIColor <- function(Indicator, Year, Countries){
+  IndicatorPaste <- paste0(Indicator, "[[1]]")
+  x <- paste0(IndicatorPaste, ", ", Year, ", ", Countries, ")")
+  APIData <- eval(parse(text=paste("staByYear(", x, sep = "")))
+  APIData <- flatten(APIData)
+  GetData <- APIData %>% mutate(iso2Code = countrycode(APIData$countryiso3code, "iso3c", "iso2c", warn = FALSE))
+  ToPlotData <- JoinData %>% inner_join(GetData, L4, by = "iso2Code")
+  return(CreateWorldMap + geom_polygon(data = ToPlotData, aes(x = long, y = lat, group = group, fill = value), color = "black") + 
+           coord_fixed(1.3) + labs(x = "Longitude", y = "Latitude", fill=""))
+}
+

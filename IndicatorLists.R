@@ -47,3 +47,19 @@ FunFacts <- list(Aircraft.Departures.1000s = "SF.TRN.AIR.DPRT", Televisions.Per.
 
 FunFactsPercentages <- list(Male.Adult.Smokers = "SH.PRV.SMOK.MA", Female.Adult.Smokers = "SH.PRV.SMOK.FE",
                          Adults.With.Credit.Card = "WP_time_03.1", Access.To.Electricity = "EG.ELC.ACCS.ZS")
+
+IndicatorsData <- data.frame(Employment = matrix(unlist(Employment), nrow=132, byrow=T), 
+                             UnemploymentPercentages = matrix(unlist(UnemploymentPercentages), nrow=132, byrow=T), 
+                             Education = matrix(unlist(Education), nrow=132, byrow=T),
+                             EducationPercentages = matrix(unlist(EducationPercentages), nrow=132, byrow=T),
+                             Population = matrix(unlist(Population), nrow=132, byrow=T),
+                             PopulationPercentages = matrix(unlist(PopulationPercentages), nrow=132, byrow=T),
+                             Health = matrix(unlist(Health), nrow=132, byrow=T),
+                             HealthPercentages = matrix(unlist(HealthPercentages), nrow=132, byrow=T),
+                             Economy = matrix(unlist(Economy), nrow=132, byrow=T),
+                             EconomyPercentages = matrix(unlist(EconomyPercentages), nrow=132, byrow=T),
+                             FunFacts = matrix(unlist(FunFacts), nrow=132, byrow=T),
+                             FunFactsPercentages = matrix(unlist(FunFactsPercentages), nrow=132, byrow=T),
+                             stringsAsFactors=FALSE)
+
+write.csv(IndicatorsData, file = "IndicatorsData.csv")

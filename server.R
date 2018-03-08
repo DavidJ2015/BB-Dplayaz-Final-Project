@@ -1,5 +1,5 @@
-source("packages.R")
-source("maps.R")
+source("./packages.R")
+source("./maps.R")
 source("./IndicatorLists.R")
 source("./Table.R")
 source("./charts.R")
@@ -39,7 +39,9 @@ function(input, output, session) {
   })
   
   output$CountryByVariable <- renderPlot({
-    CountryColor(input$CountryByVariableSelect)
+    x <- toString(input$CountryByVariableSelect)
+    y <- toString(input$SelectYear)
+    CountryAPIColor(x, y, "list(country_list)")
   })
   
   output$DataAckn <- renderText({
@@ -68,7 +70,7 @@ function(input, output, session) {
     } else{
       Graph_Pie(input$Indicators[[1]], input$SelectAYearPie, input$Count_SelPie)
     }
-
+    
   })
   
   output$distPlot2 <- renderPlot({
@@ -92,7 +94,7 @@ function(input, output, session) {
       Graph_Bar(input$Indicators[[1]], input$Indicators[[2]], year_list, input$Count_SelChart)
     }
   })
-
+  
 }
 
 # Source code - https://rstudio.github.io/shinydashboard/examples.html
