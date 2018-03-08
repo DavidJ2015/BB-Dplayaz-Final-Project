@@ -76,6 +76,7 @@ body <- dashboardBody(
                                  selectInput("MapsByCountrySelect", label = "Select a Country", choices = CountryNames, selected = "Canada")),
                 conditionalPanel(condition = "input.tabselected == 3",
                                  selectInput("CountryByVariableSelect", label = "Select a Variable", choices = c(Variable), selected = "Population"),
+                                 selectInput("SelectCat", label = "Select a Category", choices = 1:20, selected = 1),
                                  selectInput("SelectYear", label = "Select a Year", choices = 1960:2017, selected = "2012"))
               )
             )
@@ -175,5 +176,4 @@ body <- dashboardBody(
 
 
 dashboardPage(header, sidebar, body)
-
 # Source code - https://rstudio.github.io/shinydashboard/examples.html

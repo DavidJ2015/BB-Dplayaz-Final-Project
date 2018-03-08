@@ -36,7 +36,8 @@ function(input, output, session) {
   output$CountryByVariable <- renderPlot({
     x <- toString(input$CountryByVariableSelect)
     y <- toString(input$SelectYear)
-    CountryAPIColor(x, y, "list(country_list)")
+    cat <- input$SelectCat
+    CountryAPIColor(x, y, "list(country_list)", cat)
   })
   
   output$DataAckn <- renderText({
@@ -88,6 +89,12 @@ function(input, output, session) {
     } else{
       Graph_Bar(input$Indicators[[1]], input$Indicators[[2]], year_list, input$Count_SelChart)
     }
+  })
+  
+  observe({
+    x <- paste0(input$CountryByVariableSelect, ")")
+    var <- eval(parse(text=paste("length(", x, sep = "")))
+    updateSelectInput(session, "SelectCat", choices = 1:var)
   })
   
 }
