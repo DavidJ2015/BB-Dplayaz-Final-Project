@@ -13,11 +13,11 @@ CountryNames <- Data %>% select(name) %>% mutate(country_name = name) %>% select
 
 function(input, output, session) {
   output$AppIntro <- renderText({
-    "Introduction to this application here"
+    print(intro)
   })
   
   output$DataAckn <- renderText({
-    "Acknoledgments about Data from World Bank here"
+    "Acknowledgments about Data from World Bank here"
   })
   
   output$Charts <- renderText({
