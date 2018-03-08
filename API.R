@@ -147,9 +147,12 @@ staByCountry <- function(list_of_indicators, list_of_years, country){
     years_name <- list_of_years[[1]]
   }
   new_data <- staByData(list_of_indicators[[1]], list_of_years, list(country)) %>% mutate(data = paste0("Value", 1))
-  for(i in 2:length(list_of_indicators)){
-    new_list <- staByData(list_of_indicators[[i]], list_of_years, list(country)) %>% mutate(data = paste0("Value", i))
-    new_data <- rbind(new_data, new_list)
+  print(head(new_data))
+  if(length(list_of_indicators) > 1){
+    for(i in 2:length(list_of_indicators)){
+      new_list <- staByData(list_of_indicators[[i]], list_of_years, list(country)) %>% mutate(data = paste0("Value", i))
+      new_data <- rbind(new_data, new_list)
+      }
   }
   new_data <- new_data %>% select(-country)
   return(new_data)
